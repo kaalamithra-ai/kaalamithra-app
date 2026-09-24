@@ -251,6 +251,13 @@ app.post('/api/inquiries', optionalAuth, async (req, res) => {
 
 // Health check for frontend debugging
 app.get('/api/health', async (req, res) => {
+  if (!process.env.DATABASE_URL) {
+    console.error('Health: DATABASE_URL is not set on this deployment.');
+    return res.status(500).json({
+      success: false,
+      error: 'DATABASE_URL is not set. Add a hosted Postgres DATABASE_URL in Vercel env vars.',
+    });
+  }
   try {
     const r = await pool.query('SELECT NOW() as now, count(*)::int AS inquiries FROM inquiries');
     res.json({ success: true, db: 'connected', now: r.rows[0].now, inquiries: r.rows[0].inquiries });

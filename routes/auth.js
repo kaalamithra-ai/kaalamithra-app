@@ -74,6 +74,13 @@ router.post('/signup', async (req, res) => {
 
 // ---------- LOGIN ----------
 router.post('/login', async (req, res) => {
+  if (!process.env.DATABASE_URL) {
+    console.error('Login: DATABASE_URL is not set on this deployment.');
+    return res.status(500).json({
+      success: false,
+      error: 'Sign-in is unavailable: database is not configured on this deployment.',
+    });
+  }
   try {
     const email = (req.body.email || '').trim().toLowerCase();
     const password = req.body.password || '';
