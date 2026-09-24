@@ -1,17 +1,17 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { Pool } = require('pg');
+const { pool } = require('../lib/db');
+const { sessionCookie, clearSessionCookie } = require('../lib/cookies');
 const { JWT_SECRET, requireAuth, requireClient, readToken, roleOf } = require('../middleware/auth');
 const router = express.Router();
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
 function pub(u) {
   return { id: u.id, name: u.name, email: u.email, phone: u.phone || null, role: u.role, created_at: u.created_at };
 }
 function sess(res, user) {
   const t = jwt.sign({ id: user.id, email: user.email, name: user.name, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
-  res.setHeader('Set-Cookie', 'km_token=' + encodeURIComponent(t) + '; HttpOnly; Path=/; SameSite=Lax; Max-Age=' + (7 * 24 * 60 * 60));
+  res.setHeader('Set-Cookie', sessionCookie(t));
   return t;
 }
 router.post('/login', async (req, res) => {
@@ -31,7 +31,7 @@ router.post('/login', async (req, res) => {
   } catch (e) { res.status(500).json({ success: false, error: 'Could not sign in.' }); }
 });
 router.post('/logout', (req, res) => {
-  res.setHeader('Set-Cookie', 'km_token=; HttpOnly; Path=/; SameSite=Lax; Max-Age=0');
+  res.setHeader('Set-Cookie', clearSessionCookie());
   res.json({ success: true, message: 'Logged out successfully.' });
 });
 router.get('/me', async (req, res) => {

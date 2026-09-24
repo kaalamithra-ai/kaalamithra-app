@@ -2,21 +2,19 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const bcrypt = require('bcryptjs');
-require('dotenv').config();
+try { require('dotenv').config(); } catch (e) { /* dotenv optional on Vercel */ }
 const jwt = require('jsonwebtoken');
-const { Pool } = require('pg');
+const { pool } = require('./lib/db');
 const { requireAuth, requireAdmin, optionalAuth } = require('./middleware/auth');
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
 const clientRoutes = require('./routes/client');
 
 const app = express();
+// Behind Vercel's proxy: honour X-Forwarded-Proto so req.secure/cookies behave.
+app.set('trust proxy', 1);
 const JWT_SECRET = process.env.JWT_SECRET || 'kaalamithra-secret-change-me';
 const PORT = process.env.PORT || 5000;
-
-// ---- PostgreSQL pool ----
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-pool.on('error', (err) => console.error('PG pool error:', err.message));
 
 // Auto-create tables on boot (matches pgAdmin inquiries table + company support)
 async function initDb() {
@@ -59,8 +57,31 @@ initDb();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// CORS: local dev stays open for Live Server; production locks to env allowlist.
+// Set FRONTEND_URL=https://<your-frontend>.vercel.app on Vercel. Vercel preview
+// deployments (*.vercel.app) are accepted automatically so previews don't CORS-fail.
+const LOCAL_ORIGINS = [
+  'http://127.0.0.1:5500',
+  'http://localhost:5500',
+  'http://localhost:5000',
+  'http://127.0.0.1:5000',
+];
+const EXTRA_ORIGINS = String(process.env.FRONTEND_URL || process.env.CORS_ORIGINS || '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
+
+function isAllowedOrigin(origin) {
+  if (!origin) return true; // curl / server-to-server / same-origin
+  if (LOCAL_ORIGINS.includes(origin)) return true;
+  if (EXTRA_ORIGINS.includes(origin)) return true;
+  if (/^https:\/\/[a-z0-9-]+\.vercel\.app$/i.test(origin)) return true; // Vercel previews
+  return false;
+}
+
 app.use(cors({
-  origin: ['http://127.0.0.1:5500', 'http://localhost:5500', 'http://localhost:5000', 'http://127.0.0.1:5000'],
+  // NOTE: cors expects (origin, callback) — returning a boolean hangs every request.
+  origin: (origin, cb) => cb(null, isAllowedOrigin(origin)),
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
@@ -250,7 +271,18 @@ app.get('/api/inquiries', requireAuth, async (req, res) => {
   }
 });
 
-
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+// Explicit error handler so Vercel recycles the function cleanly on 500s.
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err && err.stack ? err.stack : err);
+  if (res.headersSent) return next(err);
+  res.status(500).json({ success: false, error: 'Internal server error.' });
 });
+
+// Local dev: long-lived server. Vercel: imported via api/index.js (no listen).
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;

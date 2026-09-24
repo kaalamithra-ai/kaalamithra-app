@@ -1,11 +1,11 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { Pool } = require('pg');
+const { pool } = require('../lib/db');
+const { sessionCookie, clearSessionCookie } = require('../lib/cookies');
 const { JWT_SECRET, requireAuth, requireAdmin, readToken, roleOf } = require('../middleware/auth');
 
 const router = express.Router();
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
 function publicAdmin(u) {
   return { id: u.id, name: u.name, email: u.email, role: u.role, created_at: u.created_at };
@@ -17,8 +17,7 @@ function issueAdminSession(res, user) {
     JWT_SECRET,
     { expiresIn: '7d' }
   );
-  res.setHeader('Set-Cookie',
-    'km_token=' + encodeURIComponent(token) + '; HttpOnly; Path=/; SameSite=Lax; Max-Age=' + (7 * 24 * 60 * 60));
+  res.setHeader('Set-Cookie', sessionCookie(token));
   return token;
 }
 
@@ -48,7 +47,7 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/logout', (req, res) => {
-  res.setHeader('Set-Cookie', 'km_token=; HttpOnly; Path=/; SameSite=Lax; Max-Age=0');
+  res.setHeader('Set-Cookie', clearSessionCookie());
   res.json({ success: true, message: 'Admin logged out successfully.' });
 });
 

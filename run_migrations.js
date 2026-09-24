@@ -1,9 +1,9 @@
-require('dotenv').config();
-const { Pool } = require('pg');
+try { require('dotenv').config(); } catch (e) { /* dotenv optional on Vercel */ }
+const { createPool } = require('./lib/db');
 const fs = require('fs');
 const path = require('path');
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+const pool = createPool();
 
 // Simple sequential migration runner (no external migration tool in this project).
 async function runMigrations() {

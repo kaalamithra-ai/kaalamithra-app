@@ -3,11 +3,11 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { Pool } = require('pg');
+const { pool } = require('../lib/db');
+const { sessionCookie, clearSessionCookie } = require('../lib/cookies');
 const { JWT_SECRET, roleOf } = require('../middleware/auth');
 
 const router = express.Router();
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 // Reasonable policy: 8+ chars, at least one letter and one digit.
@@ -20,9 +20,9 @@ function issueSession(res, user) {
     { expiresIn: '7d' }
   );
   // httpOnly cookie (primary for browser) + token in body (Bearer fallback / desktop clients).
-  // Secure flag omitted intentionally: local dev runs over plain http. Enable in HTTPS production.
-  res.setHeader('Set-Cookie',
-    `km_token=${encodeURIComponent(token)}; HttpOnly; Path=/; SameSite=Lax; Max-Age=${7 * 24 * 60 * 60}`);
+  // Local dev runs over plain http (SameSite=Lax). HTTPS production upgrades to
+  // SameSite=None; Secure (see lib/cookies.js) so cross-site Vercel use still works.
+  res.setHeader('Set-Cookie', sessionCookie(token));
   return token;
 }
 
@@ -109,7 +109,7 @@ router.post('/login', async (req, res) => {
 
 // ---------- LOGOUT ----------
 router.post('/logout', (req, res) => {
-  res.setHeader('Set-Cookie', 'km_token=; HttpOnly; Path=/; SameSite=Lax; Max-Age=0');
+  res.setHeader('Set-Cookie', clearSessionCookie());
   res.json({ success: true, message: 'Logged out successfully.' });
 });
 
