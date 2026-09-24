@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+
+# Env / secrets - NEVER commit real credentials
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+frontend.err.log
+server.err.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Scratch / debug / temp investigation scripts (local only, not part of backend)
+tmp*.js
+tmp*.py
+tmp*.txt
+zz*.js
+au_*.js
+au_*.txt
+check*.py
+verify_*.js
+dbcheck.js
+dbseed.js
+autotest.js
+restart_server.js
+run_bg_launcher.js
+run_front_bg.js
+run_frontend_server.js
+*_out.txt
+*_block.txt
+*_recon_final.txt
+*_scan_all.txt
+output_*.png
+
+# Backups / archives
+backend.zip
+*.bak
+*.tmp

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Client Dashboard — Kaalamithra</title>
+<style>
+* { box-sizing:border-box; }
+body { margin:0; font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif; background:#eef4ff; color:#0f172a; }
+.top { background:linear-gradient(135deg,#1e3a8a,#7c3aed); color:#fff; padding:14px 22px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:5; }
+.top small { color:#e0e7ff; font-size:12px; display:block; }
+.btn { border:0; border-radius:9px; padding:9px 14px; font-size:13.5px; font-weight:700; cursor:pointer; }
+.out { background:#ef4444; color:#fff; }
+.pri { background:linear-gradient(135deg,#2563eb,#7c3aed); color:#fff; }
+.ghost { background:#f1f5f9; color:#334155; border:1px solid #e2e8f0; }
+.wrap { max-width:1100px; margin:0 auto; padding:22px 18px 60px; }
+.grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:14px; }
+.card { background:#fff; border:1px solid #e2e8f0; border-radius:14px; padding:16px 18px; }
+.card .k { font-size:12.5px; color:#64748b; }
+.card .v { font-size:24px; font-weight:800; margin-top:4px; }
+.panel { background:#fff; border:1px solid #e2e8f0; border-radius:14px; padding:18px; margin-bottom:14px; }
+.panel h3 { margin:0 0 10px; font-size:16px; }
+table { width:100%; border-collapse:collapse; font-size:13.5px; }
+th, td { text-align:left; padding:10px 12px; border-bottom:1px solid #e2e8f0; vertical-align:top; }
+th { font-size:12px; color:#64748b; text-transform:uppercase; }
+.err { background:#fef2f2; color:#b91c1c; border:1px solid #fecaca; border-radius:10px; padding:11px 12px; margin-bottom:12px; display:none; }
+label { display:block; font-size:13px; font-weight:600; color:#334155; margin:10px 0 5px; }
+input, select, textarea { width:100%; padding:10px 12px; border:1.5px solid #e2e8f0; border-radius:9px; font-size:13.5px; outline:none; font-family:inherit; }
+textarea { min-height:90px; resize:vertical; }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.msg { display:none; margin-top:12px; padding:11px 12px; border-radius:10px; font-size:13.5px; }
+.msg.err { display:block; background:#fef2f2; color:#b91c1c; border:1px solid #fecaca; }
+.msg.ok { display:block; background:#f0fdf4; color:#15803d; border:1px solid #bbf7d0; }
+.profile { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; font-size:13.5px; }
+.profile b { color:#64748b; font-size:12px; display:block; text-transform:uppercase; }
+@media (max-width:760px){ .grid{grid-template-columns:1fr;} .two{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="top">
+  <div><b>CLIENT DASHBOARD</b><small>Kaalamithra AI Tech Solutions · <span id="who">loading...</span></small></div>
+  <button class="btn out" onclick="doLogout()">Logout</button>
+</div>
+<div class="wrap">
+  <div class="grid">
+    <div class="card"><div class="k">My Profile</div><div class="v" style="font-size:17px" id="p-name">—</div><div class="k" id="p-email">—</div></div>
+    <div class="card"><div class="k">My Inquiries</div><div class="v" id="c-n">—</div><div class="k" id="c-latest">Latest: —</div></div>
+    <div class="card"><div class="k">Actions</div><div style="display:flex;gap:8px;margin-top:8px"><button class="btn pri" onclick="scrollToInq()">Submit Inquiry</button><button class="btn ghost" onclick="loadAll()">Refresh</button></div></div>
+  </div>
+  <div class="panel"><h3>My Profile</h3><div class="profile" id="prof"><div>Loading...</div></div></div>
+  <div class="panel" id="inq-panel">
+    <h3>Submit Inquiry (INQUIRE) — same fields as the public form</h3>
+    <div id="fmsg" class="msg"></div>
+    <form onsubmit="return submitInq(event)">
+      <div class="two">
+        <div><label>Name</label><input id="f-name" /></div>
+        <div><label>Email</label><input id="f-email" /></div>
+      </div>
+      <div class="two">
+        <div><label>Phone</label><input id="f-phone" /></div>
+        <div><label>Company (optional)</label><input id="f-company" /></div>
+      </div>
+      <div class="two">
+        <div><label>Service Required</label><select id="f-service"><option>Full Stack Web Development</option><option>Generative AI &amp; Custom LLMs</option><option>Mobile App Development</option><option>UI/UX Design &amp; Prototyping</option><option>Cloud &amp; DevOps</option><option>IT Consulting &amp; Strategic Advisory</option><option>General Service</option></select></div>
+        <div><label>Budget</label><select id="f-budget"><option>N/A</option><option>Under $5k</option><option>$5k - $10k</option><option>$10k - $25k</option><option>$25k+</option></select></div>
+      </div>
+      <label>Requirements / Message</label>
+      <textarea id="f-details" placeholder="Describe your project..."></textarea>
+      <div style="margin-top:12px"><button class="btn pri" id="fbtn" type="submit">Submit Inquiry</button></div>
+    </form>
+  <div class="panel">
+    <h3>My Inquiries</h3>
+    <div id="err" class="err"></div>
+    <div style="overflow-x:auto"><table><thead><tr><th>ID</th><th>Service</th><th>Budget</th><th>Status</th><th>Message</th><th>Submitted</th></tr></thead>
+    <tbody id="rows"><tr><td colspan="6">Loading...</td></tr></tbody></table></div>
+  </div>
+</div>
+<script>
+var API = location.origin;
+function tok() { try { return localStorage.getItem('km_client_token') || ''; } catch (e) { return ''; } }
+function H() { var t = tok(); return t ? { 'Authorization': 'Bearer ' + t } : {}; }
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]; }); }
+function fmt(s) { try { return new Date(s).toLocaleString(); } catch (e) { return s || ''; } }
+function fmsg(t, ok) { var m = document.getElementById('fmsg'); m.textContent = t || ''; m.className = 'msg ' + (ok ? 'ok' : 'err'); }
+fetch(API + '/api/client/me', { credentials: 'include', headers: H() })
+  .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+  .then(function (x) {
+    if (!(x.ok && x.d.success)) { location.replace('/client/login'); return; }
+    var u = x.d.user;
+    document.getElementById('who').textContent = u.name + ' (' + u.email + ')';
+    try {
+      document.getElementById('p-name').textContent = u.name;
+      document.getElementById('p-email').textContent = u.email;
+      document.getElementById('prof').innerHTML =
+        '<div><b>Name</b>' + esc(u.name) + '</div><div><b>Email</b>' + esc(u.email) + '</div>' +
+        '<div><b>Phone</b>' + esc(u.phone || '-') + '</div><div><b>Role</b>CLIENT</div>';
+      document.getElementById('f-name').value = u.name || '';
+      document.getElementById('f-email').value = u.email || '';
+      document.getElementById('f-phone').value = u.phone || '';
+    } catch (e) {}
+    loadAll();
+  }).catch(function () { location.replace('/client/login'); });
+function loadAll() { load(); loadStats(); }
+function loadStats() {
+  fetch(API + '/api/client/stats', { credentials: 'include', headers: H() })
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (!d.success) return;
+      document.getElementById('c-n').textContent = d.myInquiries;
+      document.getElementById('c-latest').textContent = 'Latest: ' + (d.latest ? fmt(d.latest) : '-');
+    }).catch(function () {});
+}
+function scrollToInq() { try { document.getElementById('inq-panel').scrollIntoView({ behavior: 'smooth' }); } catch (e) {} }
+function submitInq(e) {
+  if (e) e.preventDefault();
+  var name = document.getElementById('f-name').value.trim();
+  var email = document.getElementById('f-email').value.trim();
+  var phone = document.getElementById('f-phone').value.trim();
+  var company = document.getElementById('f-company').value.trim();
+  var service = document.getElementById('f-service').value;
+  var budget = document.getElementById('f-budget').value;
+  var details = document.getElementById('f-details').value.trim();
+  if (!name || !email || !details) { fmsg('Please fill Name, Email and Requirements.'); return false; }
+  var btn = document.getElementById('fbtn'); btn.disabled = true; btn.textContent = 'Submitting...';
+  var headers = H(); headers['Content-Type'] = 'application/json';
+  fetch(API + '/api/inquiries', { method: 'POST', credentials: 'include', headers: headers,
+    body: JSON.stringify({ name: name, email: email, phone: phone, company: company, service: service, budget: budget, message: details, details: details }) })
+    .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+    .then(function (x) {
+      if (x.ok && x.d.success) { fmsg('Your inquiry has been submitted successfully.', true); document.getElementById('f-details').value = ''; loadAll(); }
+      else fmsg((x.d && x.d.error) || 'Submission failed.');
+    }).catch(function () { fmsg('Cannot reach server.'); })
+    .finally(function () { btn.disabled = false; btn.textContent = 'Submit Inquiry'; });
+  return false;
+}
+function load() {
+  fetch(API + '/api/client/inquiries', { credentials: 'include', headers: H() })
+    .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, s: r.status, d: d }; }); })
+    .then(function (x) {
+      if (x.s === 401 || x.s === 403) { location.replace('/client/login'); return; }
+      var rows = (x.d && x.d.data) || [];
+      document.getElementById('rows').innerHTML = rows.length ? rows.map(function (r) {
+        return '<tr><td><b>#' + r.id + '</b></td><td>' + esc(r.service) + '</td><td>' + esc(r.budget) + '</td><td>' + esc(r.status || 'New') + '</td><td>' + esc(r.details) + '</td><td>' + esc(fmt(r.created_at)) + '</td></tr>';
+      }).join('') : '<tr><td colspan="6">No requests yet — submit your first inquiry above.</td></tr>';
+    });
+}
+function doLogout() {
+  fetch(API + '/api/client/logout', { method: 'POST', credentials: 'include', headers: H() }).finally(function () {
+    try { localStorage.removeItem('km_client_token'); } catch (e) {}
+    location.replace('/client/login');
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0"/><meta http-equiv="Pragma" content="no-cache"/><meta http-equiv="Expires" content="0"/><meta name="km-entry" content="welcome-flow-v3"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}.no-scrollbar::-webkit-scrollbar{display:none;}.no-scrollbar{-ms-overflow-style:none;scrollbar-width:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "background": "#faf8ff", "on-surface-variant": "#434655", "surface-dim": "#d2d9f4", "surface-container-high": "#e2e7ff", "tertiary-container": "#d01b6f", "on-error": "#ffffff", "on-secondary-fixed-variant": "#5a00c6", "surface-container-highest": "#dae2fd", "surface-container": "#eaedff", "on-background": "#131b2e", "primary-fixed": "#dbe1ff", "surface": "#faf8ff", "primary-container": "#2563eb", "inverse-primary": "#b4c5ff", "on-primary-fixed": "#00174b", "on-tertiary-fixed-variant": "#8e0048", "secondary-fixed": "#eaddff", "secondary": "#712ae2", "tertiary": "#a90056", "on-error-container": "#93000a", "on-secondary-container": "#fffbff", "on-primary-container": "#eeefff", "outline-variant": "#c3c6d7", "surface-variant": "#dae2fd", "error-container": "#ffdad6", "surface-bright": "#faf8ff", "on-tertiary": "#ffffff", "inverse-on-surface": "#eef0ff", "secondary-fixed-dim": "#d2bbff", "surface-container-low": "#f2f3ff", "on-secondary": "#ffffff", "surface-container-lowest": "#ffffff", "primary-fixed-dim": "#b4c5ff", "on-tertiary-fixed": "#3f001c", "tertiary-fixed-dim": "#ffb1c7", "error": "#ba1a1a", "on-primary": "#ffffff", "on-tertiary-container": "#ffecef", "on-primary-fixed-variant": "#003ea8", "primary": "#004ac6", "inverse-surface": "#283044", "on-secondary-fixed": "#25005a", "surface-tint": "#0053db", "tertiary-fixed": "#ffd9e2", "secondary-container": "#8a4cfc", "on-surface": "#131b2e", "outline": "#737686" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-3xs": "0.125rem", "space-xs": "0.5rem", "space-3xl": "4rem", "gutter-desktop": "1.5rem", "container-max": "80rem", "space-xl": "2rem", "gutter-mobile": "1rem", "space-sm": "0.75rem", "space-md": "1rem", "space-2xs": "0.25rem", "space-lg": "1.5rem", "space-2xl": "3rem" }, fontFamily: { "title-md": ["Plus Jakarta Sans"], "headline-md": ["Space Grotesk"], "headline-sm": ["Space Grotesk"], "headline-lg": ["Space Grotesk"], "body-sm": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "display-hero": ["Space Grotesk"], "display-hero-mobile": ["Space Grotesk"], "headline-xl": ["Space Grotesk"], "headline-lg-mobile": ["Space Grotesk"], "body-lg": ["Plus Jakarta Sans"], "label-tagline": ["Space Grotesk"], "label-code": ["JetBrains Mono"], "headline-xl-mobile": ["Space Grotesk"] }, fontSize: { "title-md": ["18px", { lineHeight: "26px", letterSpacing: "0em", fontWeight: "600" }], "headline-md": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }], "headline-sm": ["20px", { lineHeight: "28px", letterSpacing: "-0.005em", fontWeight: "600" }], "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.015em", fontWeight: "600" }], "body-sm": ["12px", { lineHeight: "18px", letterSpacing: "0.01em", fontWeight: "400" }], "body-md": ["14px", { lineHeight: "22px", letterSpacing: "0em", fontWeight: "400" }], "display-hero": ["56px", { lineHeight: "64px", letterSpacing: "-0.03em", fontWeight: "700" }], "display-hero-mobile": ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "700" }], "headline-xl": ["40px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "700" }], "headline-lg-mobile": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }], "body-lg": ["16px", { lineHeight: "26px", letterSpacing: "-0.005em", fontWeight: "400" }], "label-tagline": ["11px", { lineHeight: "16px", letterSpacing: "0.15em", fontWeight: "700" }], "label-code": ["13px", { lineHeight: "20px", letterSpacing: "0.02em", fontWeight: "500" }], "headline-xl-mobile": ["28px", { lineHeight: "36px", letterSpacing: "-0.015em", fontWeight: "700" }] } } } }</script><style>
+.card-img{transition:transform .6s cubic-bezier(.2,.7,.3,1);}
+.service-card:hover .card-img,.featured-card:hover .card-img{transform:scale(1.06);}
+.img-fade{position:relative;}
+.img-fade::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(19,27,46,.28),transparent 55%);pointer-events:none;}
+</style></head><body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen selection:bg-primary-fixed">
+<!-- ============ AUTH GATE (professional Login/Signup screen shown before the app) ============ -->
+<style>
+  body.auth-locked > *:not(#auth-gate):not(script):not(style):not(noscript) { display: none !important; }
+  body.auth-locked { overflow: hidden; }
+</style>
+<div id="auth-gate" class="fixed inset-0 z-[90] overflow-auto" style="background: linear-gradient(135deg, #dbe1ff 0%, #eaedff 45%, #eaddff 100%);">
+  <div class="min-h-full w-full flex items-center justify-center p-4">
+    <div class="w-full max-w-md flex flex-col gap-4 py-10">
+
+      <!-- Brand -->
+      <div class="flex flex-col items-center gap-2 text-center">
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary-container via-secondary to-tertiary shadow-lg flex items-center justify-center">
+          <span class="material-symbols-outlined text-white text-[30px]">hub</span>
+        </div>
+        <div>
+          <p class="font-label-code text-[12px] font-bold tracking-widest text-on-surface">KAALA MITHRA</p>
+          <p class="font-body-sm text-[11px] text-on-surface-variant tracking-wide">AI TECH SOLUTIONS &bull; IDEA TODAY. IMPACT TOMORROW.</p>
+        </div>
+      </div>
+
+      <!-- Card -->
+      <div class="rounded-2xl bg-surface-container-lowest border border-outline-variant/30 p-space-md shadow-[0_18px_50px_rgba(19,27,46,0.14)] flex flex-col gap-4">
+
+<!-- WELCOME PANEL (entry screen) -->
+<div id="gate-welcome" class="flex flex-col gap-4">
+  <div class="text-center">
+    <h1 class="font-headline-sm text-[22px] font-bold text-on-surface">Welcome</h1>
+    <p class="font-body-sm text-[13px] text-on-surface-variant mt-1">Access your account</p>
+  </div>
+  <button type="button" onclick="Gate.switchTo('choice')" class="w-full h-12 rounded-full bg-gradient-to-r from-primary-container via-secondary to-tertiary text-on-primary font-body-md font-bold flex items-center justify-center gap-2 shadow-[0_6px_20px_-3px_rgba(113,42,226,0.35)] active:scale-[0.98] transition-transform"><span>LOGIN</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span></button>
+  <button type="button" onclick="window.location.href='http://localhost:5000/signup'" class="w-full h-12 rounded-full bg-surface-container-highest text-on-surface font-body-md font-bold flex items-center justify-center gap-2 border border-outline-variant/40 active:scale-[0.98] transition-transform"><span>SIGN UP</span><span class="material-symbols-outlined text-[18px]">person_add</span></button>
+  <p class="text-center font-body-sm text-[11px] text-on-surface-variant/70">New here? Sign up creates a CLIENT account.</p>
+</div>
+
+<!-- LOGIN TYPE CHOICE -->
+<div id="gate-choice" class="hidden flex-col gap-4">
+  <div class="text-center">
+    <h1 class="font-headline-sm text-[22px] font-bold text-on-surface">LOGIN</h1>
+    <p class="font-body-sm text-[13px] text-on-surface-variant mt-1">Choose your account type</p>
+  </div>
+  <button type="button" onclick="window.location.href='http://localhost:5000/admin/login'" class="w-full h-12 rounded-full text-white font-body-md font-bold flex items-center justify-center gap-2 active:scale-[0.98] transition-transform" style="background:linear-gradient(90deg,#0f172a,#312e81)"><span>ADMIN LOGIN</span><span class="material-symbols-outlined text-[18px]">shield_person</span></button>
+  <button type="button" onclick="Gate.switchTo('login')" class="w-full h-12 rounded-full bg-gradient-to-r from-primary-container via-secondary to-tertiary text-on-primary font-body-md font-bold flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"><span>CLIENT LOGIN</span><span class="material-symbols-outlined text-[18px]">person</span></button>
+  <p class="text-center"><button type="button" onclick="Gate.switchTo('welcome')" class="font-body-sm text-[12px] font-semibold text-primary hover:underline">Back to Welcome</button></p>
+</div>
+
+        <!-- LOGIN PANEL -->
+        <div id="gate-login" class="hidden flex-col gap-4">
+          <div class="text-center">
+            <h1 class="font-headline-sm text-[22px] font-bold text-on-surface">CLIENT LOGIN</h1>
+            <p class="font-body-sm text-[13px] text-on-surface-variant mt-1">Sign in to continue to Kaala Mithra AI Tech Solutions</p>
+          </div>
+          <p id="gate-login-msg" class="hidden text-[12px] font-semibold rounded-xl px-3 py-2"></p>
+          <form id="gate-login-form" class="flex flex-col gap-3" onsubmit="return gateSubmitLogin(event)">
+            <div class="flex flex-col gap-1">
+              <label class="font-label-code text-[11px] font-bold text-on-surface-variant">EMAIL</label>
+              <input id="gate-email" type="email" autocomplete="email" placeholder="you@company.com" class="w-full px-3.5 py-2.5 rounded-xl bg-surface border border-outline-variant/50 text-on-surface font-body-md placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary" />
+            </div>
+            <div class="flex flex-col gap-1">
+              <label class="font-label-code text-[11px] font-bold text-on-surface-variant">PASSWORD</label>
+              <input id="gate-pass" type="password" autocomplete="current-password" placeholder="Your password" class="w-full px-3.5 py-2.5 rounded-xl bg-surface border border-outline-variant/50 text-on-surface font-body-md placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary" />
+            </div>
+            <button id="gate-login-btn" type="submit" class="w-full h-12 rounded-full bg-gradient-to-r from-primary-container via-secondary to-tertiary text-on-primary font-body-md font-bold flex items-center justify-center gap-2 shadow-[0_6px_20px_-3px_rgba(113,42,226,0.35)] active:scale-[0.98] transition-transform mt-1">
+              <span>Login</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </button>
+          </form>
+          <div class="flex flex-col items-center gap-2 pt-1">
+            <button type="button" onclick="gateForgotPassword()" class="font-body-sm text-[12px] font-semibold text-primary hover:underline">Forgot Password?</button>
+            <p class="font-body-sm text-[13px] text-on-surface-variant">Don't have an account?
+              <button type="button" onclick="window.location.href='http://localhost:5000/signup'" class="font-bold text-primary hover:underline">Sign Up</button>
+            </p>
+          </div>
+        </div>
+
+        <!-- SIGNUP PANEL -->
+        <div id="gate-signup" class="hidden flex-col gap-4">
+          <div class="text-center">
+            <h1 class="font-headline-sm text-[22px] font-bold text-on-surface">Create Your Account</h1>
+            <p class="font-body-sm text-[13px] text-on-surface-variant mt-1">Create your account to access Kaala Mithra AI Tech Solutions</p>
+          </div>
+          <p id="gate-signup-msg" class="hidden text-[12px] font-semibold rounded-xl px-3 py-2"></p>
+          <form id="gate-signup-form" class="flex flex-col gap-3" onsubmit="return gateSubmitSignup(event)">
+            <div class="flex flex-col gap-1">
+              <label class="font-label-code text-[11px] font-bold text-on-surface-variant">FULL NAME</label>
+              <input id="gate-name" type="text" autocomplete="name" placeholder="Your full name" class="w-full px-3.5 py-2.5 rounded-xl bg-surface border border-outline-variant/50 text-on-surface font-body-md placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary" />
+            </div>
+            <div class="flex flex-col gap-1">
+              <label class="font-label-code text-[11px] font-bold text-on-surface-variant">EMAIL</label>
+              <input id="gate-email2" type="email" autocomplete="email" placeholder="you@company.com" class="w-full px-3.5 py-2.5 rounded-xl bg-surface border border-outline-variant/50 text-on-surface font-body-md placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary" />
+            </div>
+            <div class="flex flex-col gap-1">
+              <label class="font-label-code text-[11px] font-bold text-on-surface-variant">PHONE NUMBER</label>
+              <input id="gate-phone" type="tel" autocomplete="tel" placeholder="+91 9876543210" class="w-full px-3.5 py-2.5 rounded-xl bg-surface border border-outline-variant/50 text-on-surface font-body-md placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary" />
+            </div>
+            <div class="flex flex-col gap-1">
+              <label class="font-label-code text-[11px] font-bold text-on-surface-variant">PASSWORD</label>
+              <input id="gate-pass2" type="password" autocomplete="new-password" placeholder="Min 8 characters, letters + numbers" class="w-full px-3.5 py-2.5 rounded-xl bg-surface border border-outline-variant/50 text-on-surface font-body-md placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary" />
+            </div>
+            <div class="flex flex-col gap-1">
+              <label class="font-label-code text-[11px] font-bold text-on-surface-variant">CONFIRM PASSWORD</label>
+              <input id="gate-pass3" type="password" autocomplete="new-password" placeholder="Re-enter your password" class="w-full px-3.5 py-2.5 rounded-xl bg-surface border border-outline-variant/50 text-on-surface font-body-md placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary" />
+            </div>
+            <button id="gate-signup-btn" type="submit" class="w-full h-12 rounded-full bg-gradient-to-r from-primary-container via-secondary to-tertiary text-on-primary font-body-md font-bold flex items-center justify-center gap-2 shadow-[0_6px_20px_-3px_rgba(113,42,226,0.35)] active:scale-[0.98] transition-transform mt-1">
+              <span>Create Account</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </button>
+          </form>
+          <p class="text-center font-body-sm text-[13px] text-on-surface-variant">Already have an account?
+            <button type="button" onclick="Gate.switchTo('login')" class="font-bold text-primary hover:underline">Login</button>
+          </p>
+        </div>
+
+        <p class="text-center font-body-sm text-[11px] text-on-surface-variant/70">Protected with bcrypt hashing + JWT session.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<script>document.body.classList.add('auth-locked');</script>
+<header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] border-b border-surface-container-high/60 transition-all"><div class="h-20 px-gutter-mobile flex items-center justify-between gap-space-sm"><button class="flex items-center gap-space-xs min-w-0 text-left cursor-pointer group" onclick="switchView('view-home')"><img alt="Kaalamithra Logo" class="h-14 w-[240px] min-w-[200px] max-w-[240px] object-contain object-left flex-shrink-0 group-hover:scale-105 transition-transform" style="width:240px;height:56px" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASOUNfT24WlFejAS2umLiGethIS4cdlpVwYqJg59Hq1V6GniN9zH4PUK9u7qR2YBaYo0xOxUti7IArSDwF1a5k_CwXGh1wMfE7QP00V1HNbLVwhh2H7PRjT6OsPjSNGffDWYlU63LmRRJCUq3mMrApmNDz4claOh86SzjQ75cJlzpPc5CrBagDmhV5cAgtta08dfOZmAa1lFdPZeHMgFijLvEsjE9atWMNfVD9cfG93p_XP-mvDkgqVFMxv4GtA9cyxA"/><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight truncate leading-tight"></span><span class="font-label-tagline text-label-tagline text-primary tracking-wider truncate uppercase font-bold" id="header-subtitle">Home</span></div></button><div class="flex items-center gap-space-xs flex-shrink-0"><button class="h-9 px-space-sm rounded-full bg-gradient-to-r from-primary-container via-secondary to-tertiary text-on-primary font-body-sm text-body-sm font-semibold flex items-center justify-center shadow-[0_4px_16px_-2px_rgba(113,42,226,0.3)] min-w-[44px] active:scale-95 transition-all" onclick="switchView('view-inquire')">Inquire</button><button class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors relative" onclick="switchView('view-dashboard')" title="View Notifications &amp; Tracker"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-tertiary ring-2 ring-surface"></span></button><span id="header-user-chip" class="hidden items-center gap-1 max-w-[110px] px-2 py-1 rounded-full bg-primary-fixed/40 text-primary text-[11px] font-bold truncate"></span><button id="header-login-btn" class="h-9 px-4 rounded-full bg-primary text-on-primary font-body-sm text-[13px] font-bold flex items-center gap-1 shadow-sm active:scale-95 transition-all" onclick="Gate.show('choice')"><span class="material-symbols-outlined text-[16px]">login</span><span>Login</span></button><button id="header-logout-btn" class="hidden h-9 w-9 rounded-full bg-surface-container-high text-on-surface items-center justify-center active:scale-95 transition-all" onclick="Gate.logout()" title="Logout"><span class="material-symbols-outlined text-[18px]">logout</span></button></div></div></header><main class="flex flex-col relative w-full pt-20 pb-24 bg-surface min-h-screen"><!-- ==================== VIEW 1: HOME ==================== --><div class="view-panel flex flex-col w-full animate-fadeIn" id="view-home"><div class="relative w-full overflow-hidden px-gutter-mobile pt-space-md flex flex-col gap-space-xl"><div class="absolute -top-12 -right-16 w-64 h-64 rounded-full bg-primary-container/10 blur-3xl pointer-events-none -z-10"></div><div class="absolute top-96 -left-20 w-72 h-72 rounded-full bg-secondary-container/10 blur-3xl pointer-events-none -z-10"></div><!-- HERO SECTION --><section class="flex flex-col items-start gap-space-md w-full relative"><div class="inline-flex items-center gap-space-2xs py-1 px-space-sm rounded-full bg-surface-container-lowest shadow-[0_2px_12px_-2px_rgba(113,42,226,0.15)]"><span class="w-2 h-2 rounded-full bg-gradient-to-r from-primary via-secondary to-tertiary animate-pulse"></span><span class="font-label-code text-label-code text-primary font-bold tracking-wider">NEXT-GEN AI &amp; TECH ENTERPRISE</span></div><div class="flex flex-col gap-space-2xs"><h1 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface tracking-tight font-bold leading-tight">
+          Empowering Businesses with <span class="bg-gradient-to-r from-primary via-secondary to-tertiary bg-clip-text text-transparent">Intelligent AI</span> &amp; Digital Innovation
+        </h1><div class="inline-flex items-center gap-space-xs mt-space-2xs px-space-sm py-1.5 rounded-full bg-gradient-to-r from-primary-fixed/40 via-secondary-fixed/40 to-tertiary-fixed/30 self-start"><span class="material-symbols-outlined text-secondary text-[16px]">auto_awesome</span><span class="font-label-tagline text-label-tagline tracking-widest text-on-surface font-bold uppercase">
+            IDEA TODAY, IMPACT TOMORROW.
+          </span></div></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+        Kaalamithra AI Tech Solution Pvt. Ltd. architects scalable artificial intelligence, machine learning systems, cloud infrastructure, and enterprise automation to transform visions into real-world impact.
+      </p><div class="relative w-full rounded-2xl overflow-hidden shadow-[0_8px_28px_-6px_rgba(37,99,235,0.25)] border border-outline-variant/20 img-fade"><img src="images/hero.jpg" alt="Kaalamithra AI command center with neural network hologram" class="w-full h-52 object-cover"/><div class="absolute bottom-3 left-3 right-3 flex items-center justify-between"><span class="px-2.5 py-1 rounded-full bg-white/90 backdrop-blur text-on-surface font-label-code text-[10px] font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>LIVE NEURAL FABRIC</span><span class="px-2.5 py-1 rounded-full bg-black/45 backdrop-blur text-white font-body-sm text-[11px] font-semibold">50+ deployments</span></div></div><div class="flex flex-col w-full gap-space-xs pt-space-2xs"><button class="w-full h-12 rounded-full bg-gradient-to-r from-primary-container via-secondary to-tertiary text-on-primary font-body-md text-body-md font-semibold flex items-center justify-center gap-space-xs shadow-[0_6px_20px_-3px_rgba(113,42,226,0.35)] active:scale-[0.98] transition-transform" onclick="switchView('view-services')"><span>Explore Services</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span></button><button class="w-full h-12 rounded-full bg-surface-container-lowest text-primary font-body-md text-body-md font-semibold flex items-center justify-center gap-space-xs shadow-[0_2px_8px_rgba(19,27,46,0.06)] active:scale-[0.98] transition-transform border border-outline-variant/30" onclick="switchView('view-inquire')"><span class="material-symbols-outlined text-[18px]">chat_bubble_outline</span><span>Request Quote</span></button></div><!-- Quick Metrics Chips --><div class="w-full flex items-center gap-space-xs overflow-x-auto pb-space-2xs pt-space-xs no-scrollbar"><div class="flex items-center gap-space-xs px-space-sm py-2 rounded-xl bg-surface-container-lowest shadow-[0_2px_10px_rgba(0,0,0,0.04)] flex-shrink-0 border border-outline-variant/20"><div class="w-7 h-7 rounded-lg bg-surface-container-high text-primary flex items-center justify-center"><span class="material-symbols-outlined text-[16px]">verified</span></div><div class="flex flex-col"><span class="font-headline-sm text-[13px] font-bold leading-tight text-on-surface">99.9% Uptime</span><span class="font-body-sm text-[11px] text-on-surface-variant">AI Architectures</span></div></div><div class="flex items-center gap-space-xs px-space-sm py-2 rounded-xl bg-surface-container-lowest shadow-[0_2px_10px_rgba(0,0,0,0.04)] flex-shrink-0 border border-outline-variant/20"><div class="w-7 h-7 rounded-lg bg-surface-container-high text-secondary flex items-center justify-center"><span class="material-symbols-outlined text-[16px]">rocket_launch</span></div><div class="flex flex-col"><span class="font-headline-sm text-[13px] font-bold leading-tight text-on-surface">50+ Enterprise</span><span class="font-body-sm text-[11px] text-on-surface-variant">Live Deployments</span></div></div><div class="flex items-center gap-space-xs px-space-sm py-2 rounded-xl bg-surface-container-lowest shadow-[0_2px_10px_rgba(0,0,0,0.04)] flex-shrink-0 border border-outline-variant/20"><div class="w-7 h-7 rounded-lg bg-surface-container-high text-tertiary flex items-center justify-center"><span class="material-symbols-outlined text-[16px]">neurology</span></div><div class="flex flex-col"><span class="font-headline-sm text-[13px] font-bold leading-tight text-on-surface">Custom LLM</span><span class="font-body-sm text-[11px] text-on-surface-variant">&amp; ML Pipelines</span></div></div></div></section><!-- BRAND SPOTLIGHT BANNER --><div class="relative w-full rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_6px_24px_-4px_rgba(19,27,46,0.06)] overflow-hidden border border-outline-variant/20"><div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-container via-secondary to-tertiary"></div><div class="flex items-center justify-between gap-space-md"><div class="flex flex-col gap-space-3xs"><span class="font-label-code text-label-code text-primary uppercase font-bold">Intelligent Core</span><h3 class="font-headline-sm text-headline-sm text-on-surface">Autonomous Neural Fabric</h3><p class="font-body-sm text-body-sm text-on-surface-variant">Engineered for real-time high-throughput enterprise execution.</p></div><div class="w-24 h-24 flex-shrink-0 flex items-center justify-center relative"><div class="absolute inset-0 bg-gradient-to-tr from-primary-fixed to-secondary-fixed/40 rounded-2xl blur-lg"></div><img alt="Kaalamithra Logo" class="relative z-10 w-full h-auto object-contain drop-shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQCQtc9Xav59ayqKaTjXkCAG_Ogow_Z6Tu0fbWyHwsl28ge3b20X_DoJf8xCKaCQrveVmjOu3WO72QPVsOs5aVArfj3tOYOMif3IOKDTwhF-Z42O_2--JAEfflXeoG2fRtkKWJCy6Rg8y6WwcL3INGzdqLc-xxO1KXx50yuP-Poz82gQ0V1rF9-MWQvE9lizGYqrsTDWvqgrVtHYRxJotbfEIjMWVw-TcHY_yUz2iV4rokg4Jb4uOxs4jmJy43dOxsNw"/></div></div></div><!-- FEATURED SOLUTIONS SPOTLIGHT --><section class="flex flex-col gap-space-sm w-full"><div class="flex items-end justify-between"><div><span class="font-label-code text-label-code text-primary uppercase font-bold tracking-wider">Capabilities</span><h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-bold">Featured Solutions</h2></div><button class="font-body-sm text-body-sm text-primary font-semibold flex items-center gap-1 active:opacity-75" onclick="switchView('view-services')"><span>View all (11)</span><span class="material-symbols-outlined text-[16px]">chevron_right</span></button></div><div class="flex gap-space-md overflow-x-auto pb-space-sm pt-space-2xs no-scrollbar -mx-gutter-mobile px-gutter-mobile snap-x snap-mandatory"><div class="snap-center featured-card flex-shrink-0 w-[270px] rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_8px_24px_-4px_rgba(19,27,46,0.06)] flex flex-col justify-between relative overflow-hidden border border-outline-variant/20"><div class="w-full h-1 bg-gradient-to-r from-primary to-primary-container absolute top-0 left-0"></div><div class="relative w-full h-28 overflow-hidden img-fade"><img src="images/service-ml-analytics.jpg" alt="Custom AI and machine learning" loading="lazy" class="card-img w-full h-full object-cover"/></div><div class="flex flex-col gap-space-sm"><div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[22px]">psychology</span></div><div class="flex flex-col gap-space-3xs"><h3 class="font-title-md text-title-md text-on-surface font-bold leading-snug">Custom AI &amp; Machine Learning</h3><p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">
+                  Proprietary predictive algorithms, deep reinforcement learning, and custom neural architectures tailored to distinct industry data.
+                </p></div></div><button class="flex items-center justify-between mt-space-md pt-space-xs text-left group" onclick="requestQuoteForService('ML &amp; Predictive Analytics')"><span class="font-label-code text-[11px] text-primary font-bold group-hover:underline">ACCURACY 99.4%</span><div class="w-7 h-7 rounded-full bg-surface-container text-on-surface group-hover:bg-primary group-hover:text-on-primary transition-colors flex items-center justify-center"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></div></button></div><div class="snap-center featured-card flex-shrink-0 w-[270px] rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_8px_24px_-4px_rgba(19,27,46,0.06)] flex flex-col justify-between relative overflow-hidden border border-outline-variant/20"><div class="w-full h-1 bg-gradient-to-r from-secondary to-tertiary absolute top-0 left-0"></div><div class="relative w-full h-28 overflow-hidden img-fade"><img src="images/service-generative-ai.jpg" alt="Generative AI enterprise LLMs" loading="lazy" class="card-img w-full h-full object-cover"/></div><div class="flex flex-col gap-space-sm"><div class="w-10 h-10 rounded-xl bg-secondary-fixed flex items-center justify-center text-secondary"><span class="material-symbols-outlined text-[22px]">hub</span></div><div class="flex flex-col gap-space-3xs"><h3 class="font-title-md text-title-md text-on-surface font-bold leading-snug">Generative AI &amp; Enterprise LLMs</h3><p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">
+                  Secure RAG pipelines, internal knowledge-graph agents, model fine-tuning, and governed enterprise copilot ecosystems.
+                </p></div></div><button class="flex items-center justify-between mt-space-md pt-space-xs text-left group" onclick="requestQuoteForService('Generative AI &amp; Custom LLMs')"><span class="font-label-code text-[11px] text-secondary font-bold group-hover:underline">RAG READY</span><div class="w-7 h-7 rounded-full bg-surface-container text-on-surface group-hover:bg-secondary group-hover:text-on-primary transition-colors flex items-center justify-center"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></div></button></div><div class="snap-center featured-card flex-shrink-0 w-[270px] rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_8px_24px_-4px_rgba(19,27,46,0.06)] flex flex-col justify-between relative overflow-hidden border border-outline-variant/20"><div class="w-full h-1 bg-gradient-to-r from-primary-container to-secondary-container absolute top-0 left-0"></div><div class="relative w-full h-28 overflow-hidden img-fade"><img src="images/service-cloud-devops.jpg" alt="Cloud engineering and DevOps" loading="lazy" class="card-img w-full h-full object-cover"/></div><div class="flex flex-col gap-space-sm"><div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary-container"><span class="material-symbols-outlined text-[22px]">cloud_sync</span></div><div class="flex flex-col gap-space-3xs"><h3 class="font-title-md text-title-md text-on-surface font-bold leading-snug">Cloud Engineering &amp; DevOps</h3><p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">
+                  High-availability Kubernetes clustering, automated CI/CD for AI artifacts, and multi-cloud serverless governance.
+                </p></div></div><button class="flex items-center justify-between mt-space-md pt-space-xs text-left group" onclick="requestQuoteForService('Cloud &amp; DevOps Architecture')"><span class="font-label-code text-[11px] text-primary-container font-bold group-hover:underline">ZERO DRIFT</span><div class="w-7 h-7 rounded-full bg-surface-container text-on-surface group-hover:bg-primary-container group-hover:text-on-primary transition-colors flex items-center justify-center"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></div></button></div><div class="snap-center featured-card flex-shrink-0 w-[270px] rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_8px_24px_-4px_rgba(19,27,46,0.06)] flex flex-col justify-between relative overflow-hidden border border-outline-variant/20"><div class="w-full h-1 bg-gradient-to-r from-tertiary to-error-container absolute top-0 left-0"></div><div class="relative w-full h-28 overflow-hidden img-fade"><img src="images/service-computer-vision.jpg" alt="Computer vision automation" loading="lazy" class="card-img w-full h-full object-cover"/></div><div class="flex flex-col gap-space-sm"><div class="w-10 h-10 rounded-xl bg-tertiary-fixed flex items-center justify-center text-tertiary"><span class="material-symbols-outlined text-[22px]">visibility</span></div><div class="flex flex-col gap-space-3xs"><h3 class="font-title-md text-title-md text-on-surface font-bold leading-snug">Computer Vision &amp; Automation</h3><p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">
+                  Sub-second edge video inference, automated defect detection, sensory telemetry processing, and robotic automation.
+                </p></div></div><button class="flex items-center justify-between mt-space-md pt-space-xs text-left group" onclick="requestQuoteForService('Computer Vision &amp; Visual AI')"><span class="font-label-code text-[11px] text-tertiary font-bold group-hover:underline">REAL-TIME EDGE</span><div class="w-7 h-7 rounded-full bg-surface-container text-on-surface group-hover:bg-tertiary group-hover:text-on-primary transition-colors flex items-center justify-center"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></div></button></div></div></section><!-- TELEMETRY GAUGE --><div class="w-full rounded-2xl bg-surface-container-low p-space-md flex flex-col gap-space-sm shadow-[0_2px_12px_rgba(0,0,0,0.03)] border border-outline-variant/30"><div class="flex items-center justify-between"><div class="flex items-center gap-space-2xs"><span class="material-symbols-outlined text-secondary text-[20px]">memory</span><span class="font-headline-sm text-[15px] font-bold text-on-surface">Neural Throughput Engine</span></div><span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-primary font-label-code text-[11px] font-bold">ACTIVE STREAM</span></div><div class="flex flex-col gap-space-2xs"><div class="flex justify-between text-body-sm"><span class="text-on-surface-variant font-body-sm">Distributed Inference Load</span><span class="font-label-code font-bold text-on-surface">88.4 TFLOPS</span></div><div class="w-full h-2 rounded-full bg-surface-container-highest overflow-hidden"><div class="h-full bg-gradient-to-r from-primary via-secondary to-tertiary rounded-full w-[78%] animate-pulse"></div></div></div><div class="grid grid-cols-2 gap-space-xs pt-space-2xs"><div class="p-space-xs rounded-xl bg-surface-container-lowest flex flex-col border border-outline-variant/20"><span class="font-body-sm text-[11px] text-on-surface-variant">Global Latency</span><span class="font-headline-sm text-[16px] text-on-surface font-bold">&lt; 14ms Avg</span></div><div class="p-space-xs rounded-xl bg-surface-container-lowest flex flex-col border border-outline-variant/20"><span class="font-body-sm text-[11px] text-on-surface-variant">Model Security</span><span class="font-headline-sm text-[16px] text-secondary font-bold">SOC-2 Type II</span></div></div></div><!-- WHY KAALAMITHRA --><section class="flex flex-col gap-space-md w-full"><div><span class="font-label-code text-label-code text-primary uppercase font-bold tracking-wider">Pillars of Excellence</span><h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-bold">Why Enterprise Leaders Choose Us</h2></div><div class="grid grid-cols-1 gap-space-sm"><div class="flex items-start gap-space-sm p-space-md rounded-2xl bg-surface-container-lowest shadow-[0_2px_12px_rgba(0,0,0,0.03)] border border-outline-variant/20"><div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-primary flex-shrink-0"><span class="material-symbols-outlined text-[20px]">bolt</span></div><div class="flex flex-col gap-space-3xs"><h4 class="font-title-md text-[16px] text-on-surface font-bold leading-tight">Agile Sprint Delivery</h4><p class="font-body-sm text-body-sm text-on-surface-variant">
+                From ideation to production-ready MVP in 4-6 weeks with continuous iteration and bi-weekly release cycles.
+              </p></div></div><div class="flex items-start gap-space-sm p-space-md rounded-2xl bg-surface-container-lowest shadow-[0_2px_12px_rgba(0,0,0,0.03)] border border-outline-variant/20"><div class="w-10 h-10 rounded-xl bg-secondary-fixed flex items-center justify-center text-secondary flex-shrink-0"><span class="material-symbols-outlined text-[20px]">security</span></div><div class="flex flex-col gap-space-3xs"><h4 class="font-title-md text-[16px] text-on-surface font-bold leading-tight">Data Security &amp; Compliance</h4><p class="font-body-sm text-body-sm text-on-surface-variant">
+                Zero-retention architecture, end-to-end vector encryption, HIPAA, GDPR, and enterprise ISO alignment.
+              </p></div></div><div class="flex items-start gap-space-sm p-space-md rounded-2xl bg-surface-container-lowest shadow-[0_2px_12px_rgba(0,0,0,0.03)] border border-outline-variant/20"><div class="w-10 h-10 rounded-xl bg-tertiary-fixed flex items-center justify-center text-tertiary flex-shrink-0"><span class="material-symbols-outlined text-[20px]">cloud_done</span></div><div class="flex flex-col gap-space-3xs"><h4 class="font-title-md text-[16px] text-on-surface font-bold leading-tight">Scalable Cloud Native Design</h4><p class="font-body-sm text-body-sm text-on-surface-variant">
+                Built on elastic microservices capable of handling millions of real-time queries without performance degradation.
+              </p></div></div><div class="flex items-start gap-space-sm p-space-md rounded-2xl bg-surface-container-lowest shadow-[0_2px_12px_rgba(0,0,0,0.03)] border border-outline-variant/20"><div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-primary-container flex-shrink-0"><span class="material-symbols-outlined text-[20px]">support_agent</span></div><div class="flex flex-col gap-space-3xs"><h4 class="font-title-md text-[16px] text-on-surface font-bold leading-tight">24/7 Dedicated AI Engineers</h4><p class="font-body-sm text-body-sm text-on-surface-variant">
+                Guaranteed SLA response times, dedicated mission control squad, and automated model health observability.
+              </p></div></div></div></section><!-- CLIENT TESTIMONIAL --><section class="w-full rounded-2xl bg-gradient-to-br from-surface-container-lowest via-surface-container-low to-surface-container-high p-space-lg shadow-[0_4px_20px_-2px_rgba(19,27,46,0.05)] border border-outline-variant/30 relative overflow-hidden flex flex-col gap-space-sm"><div class="flex items-center gap-space-2xs text-secondary"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span></div><p class="font-body-lg text-body-lg text-on-surface italic font-medium leading-relaxed">
+          “Kaalamithra transformed our unstructured logistics pipeline into an autonomous predictive engine in under 6 weeks. Their speed, rigor, and model precision are unmatched.”
+        </p><div class="flex items-center justify-between pt-space-2xs"><div class="flex items-center gap-space-xs"><div class="w-10 h-10 rounded-full bg-gradient-to-tr from-primary to-secondary flex items-center justify-center text-on-primary font-bold text-sm">AR</div><div class="flex flex-col"><span class="font-title-md text-[14px] font-bold text-on-surface">Ananya Roy</span><span class="font-body-sm text-[11px] text-on-surface-variant">Chief Technology Officer, OmniScale</span></div></div><span class="font-label-code text-[11px] text-on-surface-variant">VERIFIED CLIENT</span></div></section><!-- HERO BOTTOM CTA --><section class="w-full rounded-3xl bg-gradient-to-br from-primary via-secondary to-tertiary p-space-lg text-on-primary shadow-[0_12px_32px_-4px_rgba(113,42,226,0.4)] flex flex-col gap-space-md relative overflow-hidden"><div class="absolute -bottom-10 -right-10 w-44 h-44 rounded-full bg-white/10 blur-2xl pointer-events-none"></div><div class="flex flex-col gap-space-2xs relative z-10"><span class="font-label-tagline text-label-tagline tracking-widest text-on-primary/80 uppercase font-bold">
+            TAKE THE LEAP
+          </span><h2 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-on-primary leading-tight">
+            Ready to accelerate your AI journey?
+          </h2><p class="font-body-md text-body-md text-on-primary/90 mt-1">
+            Talk to our architects today and transform theoretical concepts into quantifiable market dominance.
+          </p></div><div class="relative z-10 flex flex-col gap-space-xs"><button class="w-full h-12 rounded-full bg-surface-container-lowest text-on-surface font-body-md text-body-md font-bold flex items-center justify-center gap-space-xs shadow-lg active:scale-[0.98] transition-transform" onclick="switchView('view-inquire')"><span>Book Strategy Call</span><span class="material-symbols-outlined text-[18px]">calendar_month</span></button><div class="flex items-center justify-center gap-space-xs text-on-primary/80 font-body-sm text-[12px] pt-1"><span class="material-symbols-outlined text-[14px]">check_circle</span><span>Free 30-min Technical Feasibility Assessment</span></div><div class="flex items-center justify-center gap-2 pt-1"><a href="tel:+916361842299" class="px-3 py-1.5 rounded-full bg-white/20 backdrop-blur text-on-primary font-body-sm text-[11px] font-bold flex items-center gap-1 active:scale-95"><span class="material-symbols-outlined text-[14px]">call</span>Call Now</a><a href="https://wa.me/918884014055?text=Hi%20Kaala%20Mithra%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener" class="px-3 py-1.5 rounded-full bg-white/20 backdrop-blur text-on-primary font-body-sm text-[11px] font-bold flex items-center gap-1 active:scale-95"><span class="material-symbols-outlined text-[14px]">chat</span>WhatsApp</a><a href="mailto:tech@kaalamithra-ai.com" class="px-3 py-1.5 rounded-full bg-white/20 backdrop-blur text-on-primary font-body-sm text-[11px] font-bold flex items-center gap-1 active:scale-95"><span class="material-symbols-outlined text-[14px]">mail</span>Email</a></div></div></section><!-- FOOTER BRAND MARK --><div class="w-full flex flex-col items-center justify-center py-space-sm text-center gap-space-3xs"><span class="font-label-tagline text-label-tagline text-on-surface-variant tracking-widest uppercase">
+          KAALAMITHRA AI TECH SOLUTION PVT. LTD.
+        </span><div class="flex items-center justify-center gap-x-3 gap-y-1 flex-wrap pt-1 px-4"><a href="tel:+916361842299" class="flex items-center gap-1 font-body-sm text-[11px] font-bold text-primary whitespace-nowrap"><span class="material-symbols-outlined text-[14px]">call</span>+91 63618 42299</a><a href="mailto:tech@kaalamithra-ai.com" class="flex items-center gap-1 font-body-sm text-[11px] font-bold text-primary whitespace-nowrap"><span class="material-symbols-outlined text-[14px]">mail</span>tech@kaalamithra-ai.com</a><a href="https://www.kaalamithra-ai.com" target="_blank" rel="noopener" class="flex items-center gap-1 font-body-sm text-[11px] font-bold text-primary whitespace-nowrap"><span class="material-symbols-outlined text-[14px]">language</span>www.kaalamithra-ai.com</a></div><span class="font-body-sm text-[11px] text-on-surface-variant/70">
+          © 2026 All rights reserved. Architecting the future.
+        </span></div></div></div><!-- ==================== VIEW 2: SERVICES CATALOG ==================== --><div class="view-panel hidden flex-col w-full animate-fadeIn" id="view-services"><div class="px-gutter-mobile pt-space-md flex flex-col gap-space-lg"><div class="flex flex-col gap-space-2xs"><div class="inline-flex items-center gap-space-2xs py-1 px-space-sm rounded-full bg-primary-fixed/40 self-start"><span class="font-label-code text-label-code text-primary font-bold">ENTERPRISE SOLUTIONS</span></div><h1 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface font-bold tracking-tight">
+          Comprehensive AI &amp; Tech Capabilities
+        </h1><p class="font-body-md text-body-md text-on-surface-variant">
+          11 specialized end-to-end disciplines designed to transform complex enterprise friction into scalable digital leadership.
+        </p></div><!-- Services Search & Filter --><div class="relative w-full"><span class="material-symbols-outlined absolute left-3 top-3 text-on-surface-variant text-[20px]">search</span><input class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-surface-container-lowest border border-outline-variant/40 text-on-surface font-body-md placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary" id="service-search-input" oninput="filterServices(this.value)" placeholder="Search capabilities, models, tools..." type="text"/></div><!-- 11 Services List Grid --><div class="flex flex-col gap-space-md" id="services-grid"><div class="service-card rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_4px_16px_rgba(0,0,0,0.04)] border border-outline-variant/20 flex flex-col gap-space-sm" data-name="Generative AI &amp; Custom LLMs RAG copilot agents fine-tuning"><div class="relative w-full h-40 rounded-xl overflow-hidden img-fade mb-1 -mt-1"><img src="images/service-generative-ai.jpg" alt="Generative AI and custom LLM agents visualization" loading="lazy" class="card-img w-full h-full object-cover"/><span class="absolute bottom-2 left-2 px-2 py-0.5 rounded-full bg-white/85 backdrop-blur text-primary font-label-code text-[10px] font-bold">01 / ENTERPRISE</span></div><div class="flex items-start justify-between"><div class="flex items-center gap-space-xs"><div class="w-10 h-10 rounded-xl bg-secondary-fixed flex items-center justify-center text-secondary"><span class="material-symbols-outlined text-[22px]">smart_toy</span></div><div><h3 class="font-title-md text-on-surface font-bold">Generative AI &amp; Custom LLMs</h3><span class="font-label-code text-[11px] text-secondary font-bold">NATURAL LANGUAGE &amp; REASONING</span></div></div></div><p class="font-body-sm text-on-surface-variant leading-relaxed">
+            Enterprise fine-tuning, domain-specific RAG knowledge graphs, private internal LLM deployments, autonomous agents, and multi-modal assistants.
+          </p><div class="flex flex-wrap gap-1.5"><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">LangChain</span><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">Llama 3</span><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">Vector DB</span><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">Agentic Workflows</span></div><div class="pt-space-2xs flex items-center justify-between border-t border-surface-container"><span class="font-body-sm text-[12px] text-on-surface-variant font-medium">Timeline: 3-6 weeks</span><button class="px-space-sm py-1.5 rounded-full bg-secondary text-on-secondary font-body-sm text-[12px] font-semibold flex items-center gap-1 active:scale-95 transition-all" onclick="requestQuoteForService('Generative AI &amp; Custom LLMs')"><span>Request Quote</span><span class="material-symbols-outlined text-[14px]">arrow_forward</span></button></div></div><div class="service-card rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_4px_16px_rgba(0,0,0,0.04)] border border-outline-variant/20 flex flex-col gap-space-sm" data-name="Machine Learning Predictive Analytics forecasting deep learning"><div class="relative w-full h-40 rounded-xl overflow-hidden img-fade mb-1 -mt-1"><img src="images/service-ml-analytics.jpg" alt="Machine learning predictive analytics dashboard" loading="lazy" class="card-img w-full h-full object-cover"/><span class="absolute bottom-2 left-2 px-2 py-0.5 rounded-full bg-white/85 backdrop-blur text-primary font-label-code text-[10px] font-bold">02 / ENTERPRISE</span></div><div class="flex items-start justify-between"><div class="flex items-center gap-space-xs"><div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[22px]">insights</span></div><div><h3 class="font-title-md text-on-surface font-bold">ML &amp; Predictive Analytics</h3><span class="font-label-code text-[11px] text-primary font-bold">DATA SCIENCE &amp; PREDICTION</span></div></div></div><p class="font-body-sm text-on-surface-variant leading-relaxed">
+            Proprietary predictive algorithms, churn mitigation, financial modeling, dynamic pricing, and continuous reinforcement learning pipelines.
+          </p><div class="flex flex-wrap gap-1.5"><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">PyTorch</span><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">XGBoost</span><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">MLflow</span></div><div class="pt-space-2xs flex items-center justify-between border-t border-surface-container"><span class="font-body-sm text-[12px] text-on-surface-variant font-medium">Timeline: 4-8 weeks</span><button class="px-space-sm py-1.5 rounded-full bg-primary text-on-primary font-body-sm text-[12px] font-semibold flex items-center gap-1 active:scale-95 transition-all" onclick="requestQuoteForService('ML &amp; Predictive Analytics')"><span>Request Quote</span><span class="material-symbols-outlined text-[14px]">arrow_forward</span></button></div></div><div class="service-card rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_4px_16px_rgba(0,0,0,0.04)] border border-outline-variant/20 flex flex-col gap-space-sm" data-name="Computer Vision Visual AI OCR object detection inspection"><div class="relative w-full h-40 rounded-xl overflow-hidden img-fade mb-1 -mt-1"><img src="images/service-computer-vision.jpg" alt="Computer vision defect detection and biometric scan" loading="lazy" class="card-img w-full h-full object-cover"/><span class="absolute bottom-2 left-2 px-2 py-0.5 rounded-full bg-white/85 backdrop-blur text-primary font-label-code text-[10px] font-bold">03 / ENTERPRISE</span></div><div class="flex items-start justify-between"><div class="flex items-center gap-space-xs"><div class="w-10 h-10 rounded-xl bg-tertiary-fixed flex items-center justify-center text-tertiary"><span class="material-symbols-outlined text-[22px]">visibility</span></div><div><h3 class="font-title-md text-on-surface font-bold">Computer Vision &amp; Visual AI</h3><span class="font-label-code text-[11px] text-tertiary font-bold">SPATIAL TELEMETRY</span></div></div></div><p class="font-body-sm text-on-surface-variant leading-relaxed">
+            Real-time quality defect detection, facial biometric authentication, spatial analytics, automated document OCR, and video stream telemetry.
+          </p><div class="flex flex-wrap gap-1.5"><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">OpenCV</span><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">YOLOv10</span><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">TensorRT</span></div><div class="pt-space-2xs flex items-center justify-between border-t border-surface-container"><span class="font-body-sm text-[12px] text-on-surface-variant font-medium">Timeline: 4-6 weeks</span><button class="px-space-sm py-1.5 rounded-full bg-tertiary text-on-tertiary font-body-sm text-[12px] font-semibold flex items-center gap-1 active:scale-95 transition-all" onclick="requestQuoteForService('Computer Vision &amp; Visual AI')"><span>Request Quote</span><span class="material-symbols-outlined text-[14px]">arrow_forward</span></button></div></div><div class="service-card rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_4px_16px_rgba(0,0,0,0.04)] border border-outline-variant/20 flex flex-col gap-space-sm" data-name="Full-Stack Web Mobile React Next.js iOS Android Flutter"><div class="relative w-full h-40 rounded-xl overflow-hidden img-fade mb-1 -mt-1"><img src="images/service-fullstack.jpg" alt="Full-stack web and mobile app development" loading="lazy" class="card-img w-full h-full object-cover"/><span class="absolute bottom-2 left-2 px-2 py-0.5 rounded-full bg-white/85 backdrop-blur text-primary font-label-code text-[10px] font-bold">04 / ENTERPRISE</span></div><div class="flex items-start justify-between"><div class="flex items-center gap-space-xs"><div class="w-10 h-10 rounded-xl bg-primary-fixed-dim/40 flex items-center justify-center text-primary-container"><span class="material-symbols-outlined text-[22px]">devices</span></div><div><h3 class="font-title-md text-on-surface font-bold">Full-Stack Web &amp; Mobile</h3><span class="font-label-code text-[11px] text-primary font-bold">CROSS-PLATFORM ENG</span></div></div></div><p class="font-body-sm text-on-surface-variant leading-relaxed">
+            Ultra-fast responsive web applications, native iOS/Android experiences, progressive web apps, resilient backend APIs, and micro-frontend structures.
+          </p><div class="flex flex-wrap gap-1.5"><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">Next.js</span><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">Flutter</span><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">Node.js</span></div><div class="pt-space-2xs flex items-center justify-between border-t border-surface-container"><span class="font-body-sm text-[12px] text-on-surface-variant font-medium">Timeline: 4-10 weeks</span><button class="px-space-sm py-1.5 rounded-full bg-primary-container text-on-primary font-body-sm text-[12px] font-semibold flex items-center gap-1 active:scale-95 transition-all" onclick="requestQuoteForService('Full-Stack Web &amp; Mobile')"><span>Request Quote</span><span class="material-symbols-outlined text-[14px]">arrow_forward</span></button></div></div><div class="service-card rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_4px_16px_rgba(0,0,0,0.04)] border border-outline-variant/20 flex flex-col gap-space-sm" data-name="Cloud DevOps Architecture AWS Azure Kubernetes Docker"><div class="relative w-full h-40 rounded-xl overflow-hidden img-fade mb-1 -mt-1"><img src="images/service-cloud-devops.jpg" alt="Cloud DevOps Kubernetes infrastructure" loading="lazy" class="card-img w-full h-full object-cover"/><span class="absolute bottom-2 left-2 px-2 py-0.5 rounded-full bg-white/85 backdrop-blur text-primary font-label-code text-[10px] font-bold">05 / ENTERPRISE</span></div><div class="flex items-start justify-between"><div class="flex items-center gap-space-xs"><div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-secondary"><span class="material-symbols-outlined text-[22px]">cloud_sync</span></div><div><h3 class="font-title-md text-on-surface font-bold">Cloud &amp; DevOps Architecture</h3><span class="font-label-code text-[11px] text-secondary font-bold">INFRASTRUCTURE &amp; SCALE</span></div></div></div><p class="font-body-sm text-on-surface-variant leading-relaxed">
+            Multi-cloud infrastructure as code (Terraform), Kubernetes deployment orchestration, zero-downtime CI/CD automation, and FinOps cloud spend reduction.
+          </p><div class="flex flex-wrap gap-1.5"><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">AWS</span><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">Kubernetes</span><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">Terraform</span></div><div class="pt-space-2xs flex items-center justify-between border-t border-surface-container"><span class="font-body-sm text-[12px] text-on-surface-variant font-medium">Timeline: 2-5 weeks</span><button class="px-space-sm py-1.5 rounded-full bg-secondary text-on-secondary font-body-sm text-[12px] font-semibold flex items-center gap-1 active:scale-95 transition-all" onclick="requestQuoteForService('Cloud &amp; DevOps Architecture')"><span>Request Quote</span><span class="material-symbols-outlined text-[14px]">arrow_forward</span></button></div></div><div class="service-card rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_4px_16px_rgba(0,0,0,0.04)] border border-outline-variant/20 flex flex-col gap-space-sm" data-name="Enterprise AI Robotic Process Automation RPA workflow"><div class="relative w-full h-40 rounded-xl overflow-hidden img-fade mb-1 -mt-1"><img src="images/service-rpa.jpg" alt="Enterprise RPA workflow automation robots" loading="lazy" class="card-img w-full h-full object-cover"/><span class="absolute bottom-2 left-2 px-2 py-0.5 rounded-full bg-white/85 backdrop-blur text-primary font-label-code text-[10px] font-bold">06 / ENTERPRISE</span></div><div class="flex items-start justify-between"><div class="flex items-center gap-space-xs"><div class="w-10 h-10 rounded-xl bg-surface-variant flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[22px]">precision_manufacturing</span></div><div><h3 class="font-title-md text-on-surface font-bold">Enterprise AI &amp; RPA</h3><span class="font-label-code text-[11px] text-primary font-bold">INTELLIGENT PROCESSES</span></div></div></div><p class="font-body-sm text-on-surface-variant leading-relaxed">
+            End-to-end enterprise workflow automation, intelligent document processing (IDP), ERP/CRM sync automation, and cognitive RPA bots.
+          </p><div class="flex flex-wrap gap-1.5"><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">UiPath</span><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">Power Automate</span><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">Python Bot</span></div><div class="pt-space-2xs flex items-center justify-between border-t border-surface-container"><span class="font-body-sm text-[12px] text-on-surface-variant font-medium">Timeline: 3-6 weeks</span><button class="px-space-sm py-1.5 rounded-full bg-primary text-on-primary font-body-sm text-[12px] font-semibold flex items-center gap-1 active:scale-95 transition-all" onclick="requestQuoteForService('Enterprise AI &amp; RPA')"><span>Request Quote</span><span class="material-symbols-outlined text-[14px]">arrow_forward</span></button></div></div><div class="service-card rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_4px_16px_rgba(0,0,0,0.04)] border border-outline-variant/20 flex flex-col gap-space-sm" data-name="Big Data Warehousing Snowflake Databricks ETL streaming"><div class="relative w-full h-40 rounded-xl overflow-hidden img-fade mb-1 -mt-1"><img src="images/service-bigdata.jpg" alt="Big data lakehouse warehousing pipelines" loading="lazy" class="card-img w-full h-full object-cover"/><span class="absolute bottom-2 left-2 px-2 py-0.5 rounded-full bg-white/85 backdrop-blur text-primary font-label-code text-[10px] font-bold">07 / ENTERPRISE</span></div><div class="flex items-start justify-between"><div class="flex items-center gap-space-xs"><div class="w-10 h-10 rounded-xl bg-tertiary-fixed-dim/40 flex items-center justify-center text-tertiary"><span class="material-symbols-outlined text-[22px]">dataset</span></div><div><h3 class="font-title-md text-on-surface font-bold">Big Data &amp; Warehousing</h3><span class="font-label-code text-[11px] text-tertiary font-bold">DATA PIPELINES</span></div></div></div><p class="font-body-sm text-on-surface-variant leading-relaxed">
+            Modern lakehouse architectures, petabyte-scale data lakes, low-latency Kafka stream analytics, ETL automation, and dbt modeling.
+          </p><div class="flex flex-wrap gap-1.5"><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">Snowflake</span><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">Databricks</span><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">Kafka</span></div><div class="pt-space-2xs flex items-center justify-between border-t border-surface-container"><span class="font-body-sm text-[12px] text-on-surface-variant font-medium">Timeline: 4-8 weeks</span><button class="px-space-sm py-1.5 rounded-full bg-tertiary text-on-tertiary font-body-sm text-[12px] font-semibold flex items-center gap-1 active:scale-95 transition-all" onclick="requestQuoteForService('Big Data &amp; Warehousing')"><span>Request Quote</span><span class="material-symbols-outlined text-[14px]">arrow_forward</span></button></div></div><div class="service-card rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_4px_16px_rgba(0,0,0,0.04)] border border-outline-variant/20 flex flex-col gap-space-sm" data-name="AI Cybersecurity Zero Trust SOC Threat Intelligence"><div class="relative w-full h-40 rounded-xl overflow-hidden img-fade mb-1 -mt-1"><img src="images/service-cybersecurity.jpg" alt="AI cybersecurity zero-trust shield" loading="lazy" class="card-img w-full h-full object-cover"/><span class="absolute bottom-2 left-2 px-2 py-0.5 rounded-full bg-white/85 backdrop-blur text-primary font-label-code text-[10px] font-bold">08 / ENTERPRISE</span></div><div class="flex items-start justify-between"><div class="flex items-center gap-space-xs"><div class="w-10 h-10 rounded-xl bg-error-container/60 flex items-center justify-center text-error"><span class="material-symbols-outlined text-[22px]">security</span></div><div><h3 class="font-title-md text-on-surface font-bold">AI Cybersecurity &amp; Threat Sec</h3><span class="font-label-code text-[11px] text-error font-bold">ZERO-TRUST AUDIT</span></div></div></div><p class="font-body-sm text-on-surface-variant leading-relaxed">
+            AI-driven anomaly detection, penetration auditing, automated SOC telemetry, model inversion defense, and prompt-injection guardrails.
+          </p><div class="flex flex-wrap gap-1.5"><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">SIEM AI</span><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">Guardrails</span><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">Zero Trust</span></div><div class="pt-space-2xs flex items-center justify-between border-t border-surface-container"><span class="font-body-sm text-[12px] text-on-surface-variant font-medium">Timeline: 2-4 weeks</span><button class="px-space-sm py-1.5 rounded-full bg-error text-on-error font-body-sm text-[12px] font-semibold flex items-center gap-1 active:scale-95 transition-all" onclick="requestQuoteForService('AI Cybersecurity')"><span>Request Quote</span><span class="material-symbols-outlined text-[14px]">arrow_forward</span></button></div></div><div class="service-card rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_4px_16px_rgba(0,0,0,0.04)] border border-outline-variant/20 flex flex-col gap-space-sm" data-name="IoT Embedded Systems Sensors Edge Computing Hardware"><div class="relative w-full h-40 rounded-xl overflow-hidden img-fade mb-1 -mt-1"><img src="images/service-iot.jpg" alt="IoT embedded sensors and edge hardware" loading="lazy" class="card-img w-full h-full object-cover"/><span class="absolute bottom-2 left-2 px-2 py-0.5 rounded-full bg-white/85 backdrop-blur text-primary font-label-code text-[10px] font-bold">09 / ENTERPRISE</span></div><div class="flex items-start justify-between"><div class="flex items-center gap-space-xs"><div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-on-surface"><span class="material-symbols-outlined text-[22px]">developer_board</span></div><div><h3 class="font-title-md text-on-surface font-bold">IoT &amp; Embedded Systems</h3><span class="font-label-code text-[11px] text-on-surface font-bold">EDGE HARDWARE</span></div></div></div><p class="font-body-sm text-on-surface-variant leading-relaxed">
+            Smart factory sensors, micro-controller firmware, edge AI inference chips (Coral / Jetson), and industrial telemetry streaming.
+          </p><div class="flex flex-wrap gap-1.5"><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">Raspberry Pi</span><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">Jetson</span><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">MQTT</span></div><div class="pt-space-2xs flex items-center justify-between border-t border-surface-container"><span class="font-body-sm text-[12px] text-on-surface-variant font-medium">Timeline: 4-8 weeks</span><button class="px-space-sm py-1.5 rounded-full bg-on-surface text-surface font-body-sm text-[12px] font-semibold flex items-center gap-1 active:scale-95 transition-all" onclick="requestQuoteForService('IoT &amp; Embedded Systems')"><span>Request Quote</span><span class="material-symbols-outlined text-[14px]">arrow_forward</span></button></div></div><div class="service-card rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_4px_16px_rgba(0,0,0,0.04)] border border-outline-variant/20 flex flex-col gap-space-sm" data-name="UI UX Design Prototyping Figma design systems product experience">
+<div class="relative w-full h-40 rounded-xl overflow-hidden img-fade mb-1 -mt-1"><img src="images/service-uiux.jpg" alt="UI/UX design system wireframes and prototyping" loading="lazy" class="card-img w-full h-full object-cover"/><span class="absolute bottom-2 left-2 px-2 py-0.5 rounded-full bg-white/85 backdrop-blur text-primary font-label-code text-[10px] font-bold">10 / ENTERPRISE</span></div><div class="flex items-start justify-between"><div class="flex items-center gap-space-xs"><div class="w-10 h-10 rounded-xl bg-secondary-fixed-dim/40 flex items-center justify-center text-secondary"><span class="material-symbols-outlined text-[22px]">palette</span></div><div><h3 class="font-title-md text-on-surface font-bold">UI/UX Design &amp; Prototyping</h3><span class="font-label-code text-[11px] text-secondary font-bold">HUMAN INTERFACE</span></div></div></div><p class="font-body-sm text-on-surface-variant leading-relaxed">
+            Comprehensive design systems, rapid interactive Figma prototyping, usability testing, and frictionless enterprise software interfaces.
+          </p><div class="flex flex-wrap gap-1.5"><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">Figma</span><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">Tokens</span><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">Design System</span></div><div class="pt-space-2xs flex items-center justify-between border-t border-surface-container"><span class="font-body-sm text-[12px] text-on-surface-variant font-medium">Timeline: 2-4 weeks</span><button class="px-space-sm py-1.5 rounded-full bg-secondary text-on-secondary font-body-sm text-[12px] font-semibold flex items-center gap-1 active:scale-95 transition-all" onclick="requestQuoteForService('UI/UX Design &amp; Prototyping')"><span>Request Quote</span><span class="material-symbols-outlined text-[14px]">arrow_forward</span></button></div></div><div class="service-card rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_4px_16px_rgba(0,0,0,0.04)] border border-outline-variant/20 flex flex-col gap-space-sm" data-name="IT Consulting Strategic Advisory roadmapping digital transformation">
+<div class="relative w-full h-40 rounded-xl overflow-hidden img-fade mb-1 -mt-1"><img src="images/service-consulting.jpg" alt="IT consulting strategy session with AI roadmap hologram" loading="lazy" class="card-img w-full h-full object-cover"/><span class="absolute bottom-2 left-2 px-2 py-0.5 rounded-full bg-white/85 backdrop-blur text-primary font-label-code text-[10px] font-bold">11 / ENTERPRISE</span></div><div class="flex items-start justify-between"><div class="flex items-center gap-space-xs"><div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[22px]">psychology_alt</span></div><div><h3 class="font-title-md text-on-surface font-bold">IT Consulting &amp; Strategic Advisory</h3><span class="font-label-code text-[11px] text-primary font-bold">EXECUTIVE ROADMAP</span></div></div></div><p class="font-body-sm text-on-surface-variant leading-relaxed">
+            C-suite technology roadmaps, AI readiness evaluations, cloud migration audit, and technical vendor vetting.
+          </p><div class="flex flex-wrap gap-1.5"><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">Advisory</span><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">Due Diligence</span><span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-code text-[10px]">ROI Modeling</span></div><div class="pt-space-2xs flex items-center justify-between border-t border-surface-container"><span class="font-body-sm text-[12px] text-on-surface-variant font-medium">Timeline: Flexible</span><button class="px-space-sm py-1.5 rounded-full bg-primary text-on-primary font-body-sm text-[12px] font-semibold flex items-center gap-1 active:scale-95 transition-all" onclick="requestQuoteForService('IT Consulting &amp; Strategic Advisory')"><span>Request Quote</span><span class="material-symbols-outlined text-[14px]">arrow_forward</span></button></div></div></div><div class="w-full rounded-2xl bg-surface-container-lowest border border-outline-variant/20 p-space-sm flex flex-col items-center gap-space-2xs shadow-[0_2px_10px_rgba(0,0,0,0.03)]"><div class="flex items-center gap-1 font-label-code text-[10px] font-bold text-on-surface-variant tracking-wider"><span class="material-symbols-outlined text-[14px] text-primary">hub</span>KAALA MITHRA • AI TECH SOLUTION</div><div class="flex items-center justify-center gap-x-3 gap-y-1 flex-wrap"><a href="tel:+916361842299" class="flex items-center gap-1 font-body-sm text-[11px] font-bold text-primary"><span class="material-symbols-outlined text-[14px]">call</span>+91 63618 42299</a><a href="mailto:tech@kaalamithra-ai.com" class="flex items-center gap-1 font-body-sm text-[11px] font-bold text-primary"><span class="material-symbols-outlined text-[14px]">mail</span>tech@kaalamithra-ai.com</a><a href="https://www.kaalamithra-ai.com" target="_blank" rel="noopener" class="flex items-center gap-1 font-body-sm text-[11px] font-bold text-primary"><span class="material-symbols-outlined text-[14px]">language</span>www.kaalamithra-ai.com</a></div></div></div></div><!-- ==================== VIEW 3: INQUIRE & DISCOVERY ==================== --><div class="view-panel hidden flex-col w-full animate-fadeIn" id="view-inquire"><div class="px-gutter-mobile pt-space-md flex flex-col gap-space-lg"><!-- Inquire Header --><div class="flex flex-col gap-space-2xs"><div class="inline-flex items-center gap-space-2xs py-1 px-space-sm rounded-full bg-secondary-fixed/50 self-start"><span class="font-label-code text-label-code text-secondary font-bold">CONTACT &amp; DISCOVERY</span></div><h1 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface font-bold tracking-tight">
+          Let’s Architect Your Solution
+        </h1><p class="font-body-md text-body-md text-on-surface-variant">
+          Complete the project brief below to schedule a 30-minute discovery call with our Chief AI Architect.
+        </p></div><!-- HQ Details Card --><div class="rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_4px_16px_rgba(0,0,0,0.04)] border border-outline-variant/30 flex flex-col gap-space-xs"><div class="flex items-center justify-between"><div class="flex items-center gap-space-2xs text-primary"><span class="material-symbols-outlined text-[18px]">location_on</span><span class="font-headline-sm text-[13px] font-bold uppercase tracking-wider text-on-surface">Tumkurur</span></div><span class="px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-label-code text-[10px] font-bold">ACTIVE</span></div><p class="font-body-sm text-body-sm text-on-surface-variant">Kaalamithra AI Tech Solution Pvt. Ltd., 84MM+CJ8, Road, Devaraya Pattana, Tumakur, Karnataka 572104</p><div class="relative w-full h-32 rounded-xl overflow-hidden img-fade"><img src="images/hero.jpg" alt="Bengaluru Silicon Hub HQ" loading="lazy" class="card-img w-full h-full object-cover"/><span class="absolute bottom-2 left-2 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur text-primary font-label-code text-[10px] font-bold">INDIRANAGAR • BENGALURU</span></div><div class="flex flex-col gap-space-xs pt-1"><div class="flex items-center gap-space-2xs"><span class="material-symbols-outlined text-secondary text-[16px]">call</span><span class="font-label-code text-[10px] font-bold text-on-surface-variant tracking-wider">WHATSAPP / CALL — TAP TO CALL</span></div><div class="flex flex-wrap gap-2"><a href="tel:+916361842299" class="px-3 py-1.5 rounded-xl bg-primary text-on-primary font-body-sm text-[12px] font-bold shadow-sm active:scale-95 transition-all">+91 63618 42299</a><a href="tel:+918884014055" class="px-3 py-1.5 rounded-xl bg-surface-container text-on-surface font-body-sm text-[12px] font-bold active:scale-95 transition-all border border-outline-variant/30">+91 88840 14055</a><a href="tel:+919972770266" class="px-3 py-1.5 rounded-xl bg-surface-container text-on-surface font-body-sm text-[12px] font-bold active:scale-95 transition-all border border-outline-variant/30">+91 99727 70266</a><a href="https://wa.me/918884014055?text=Hi%20Kaala%20Mithra%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener" class="px-3 py-1.5 rounded-xl bg-[#25D366] text-white font-body-sm text-[12px] font-bold shadow-sm active:scale-95 transition-all flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">chat</span>WhatsApp</a></div><div class="flex items-center justify-between p-2.5 rounded-xl bg-surface border border-outline-variant/30"><a href="mailto:tech@kaalamithra-ai.com" class="flex items-center gap-2 min-w-0"><span class="material-symbols-outlined text-primary text-[20px] flex-shrink-0">mail</span><span class="flex flex-col min-w-0 text-left"><span class="font-label-code text-[10px] font-bold text-on-surface-variant">EMAIL</span><span class="font-body-sm text-[13px] font-bold text-on-surface truncate">tech@kaalamithra-ai.com</span></span></a><button class="px-space-xs py-1 rounded-lg bg-surface-container text-primary font-body-sm text-[11px] font-semibold active:bg-primary-fixed flex items-center gap-1 flex-shrink-0" onclick="copyToClipboard('tech@kaalamithra-ai.com', this)"><span class="material-symbols-outlined text-[14px]">content_copy</span><span>Copy</span></button></div><div class="flex items-center justify-between p-2.5 rounded-xl bg-surface border border-outline-variant/30"><a href="https://www.kaalamithra-ai.com" target="_blank" rel="noopener" class="flex items-center gap-2 min-w-0"><span class="material-symbols-outlined text-secondary text-[20px] flex-shrink-0">language</span><span class="flex flex-col min-w-0 text-left"><span class="font-label-code text-[10px] font-bold text-on-surface-variant">WEBSITE</span><span class="font-body-sm text-[13px] font-bold text-secondary truncate">www.kaalamithra-ai.com</span></span></a><button class="px-space-xs py-1 rounded-lg bg-surface-container text-primary font-body-sm text-[11px] font-semibold active:bg-primary-fixed flex items-center gap-1 flex-shrink-0" onclick="copyToClipboard('https://www.kaalamithra-ai.com', this)"><span class="material-symbols-outlined text-[14px]">content_copy</span><span>Copy</span></button></div></div></div><!-- Discovery Form --><form class="rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_6px_20px_rgba(19,27,46,0.06)] border border-outline-variant/30 flex flex-col gap-space-md" id="inquiry-form" onsubmit="handleFormSubmit(event)"><!-- Section 1: Contact Info --><div class="flex flex-col gap-space-xs"><label class="font-headline-sm text-[14px] font-bold text-on-surface">1. Contact Information</label><input class="w-full px-3.5 py-2.5 rounded-xl bg-surface border border-outline-variant/50 text-on-surface font-body-md placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary" id="input-name" placeholder="Full Name *" required="" type="text"/><input class="w-full px-3.5 py-2.5 rounded-xl bg-surface border border-outline-variant/50 text-on-surface font-body-md placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary" id="input-email" placeholder="Work Email *" required="" type="email"/><input class="w-full px-3.5 py-2.5 rounded-xl bg-surface border border-outline-variant/50 text-on-surface font-body-md placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary" id="input-phone" placeholder="Phone Number / WhatsApp" type="tel"/></div><!-- Section 2: Domain Chips --><div class="flex flex-col gap-space-xs"><label class="font-headline-sm text-[14px] font-bold text-on-surface">2. Select Project Domain</label><div class="flex flex-wrap gap-2" id="domain-chips-container"><button class="domain-chip px-3 py-1.5 rounded-xl text-body-sm text-[12px] font-semibold border transition-all bg-primary text-on-primary border-primary shadow-sm" onclick="selectDomain(this)" type="button">Generative AI &amp; Custom LLMs</button><button class="domain-chip px-3 py-1.5 rounded-xl text-body-sm text-[12px] font-semibold border transition-all bg-surface text-on-surface-variant border-outline-variant/40" onclick="selectDomain(this)" type="button">ML &amp; Predictive Analytics</button><button class="domain-chip px-3 py-1.5 rounded-xl text-body-sm text-[12px] font-semibold border transition-all bg-surface text-on-surface-variant border-outline-variant/40" onclick="selectDomain(this)" type="button">Computer Vision &amp; Visual AI</button><button class="domain-chip px-3 py-1.5 rounded-xl text-body-sm text-[12px] font-semibold border transition-all bg-surface text-on-surface-variant border-outline-variant/40" onclick="selectDomain(this)" type="button">Cloud &amp; DevOps Architecture</button><button class="domain-chip px-3 py-1.5 rounded-xl text-body-sm text-[12px] font-semibold border transition-all bg-surface text-on-surface-variant border-outline-variant/40" onclick="selectDomain(this)" type="button">Full-Stack Web &amp; Mobile</button><button class="domain-chip px-3 py-1.5 rounded-xl text-body-sm text-[12px] font-semibold border transition-all bg-surface text-on-surface-variant border-outline-variant/40" onclick="selectDomain(this)" type="button">Enterprise AI &amp; RPA</button><button class="domain-chip px-3 py-1.5 rounded-xl text-body-sm text-[12px] font-semibold border transition-all bg-surface text-on-surface-variant border-outline-variant/40" onclick="selectDomain(this)" type="button">Big Data &amp; Warehousing</button><button class="domain-chip px-3 py-1.5 rounded-xl text-body-sm text-[12px] font-semibold border transition-all bg-surface text-on-surface-variant border-outline-variant/40" onclick="selectDomain(this)" type="button">AI Cybersecurity</button></div></div><!-- Section 3: Budget Allocation --><div class="flex flex-col gap-space-xs"><label class="font-headline-sm text-[14px] font-bold text-on-surface">3. Estimated Budget Tier</label><div class="grid grid-cols-3 gap-2"><div class="budget-card cursor-pointer p-2 rounded-xl border text-center border-primary bg-primary-fixed/20 transition-all" onclick="selectBudget(this, '$10k - $25k')"><span class="font-headline-sm text-[12px] font-bold block text-primary">$10k-$25k</span><span class="font-body-sm text-[10px] text-on-surface-variant">Proof of Concept</span></div><div class="budget-card cursor-pointer p-2 rounded-xl border text-center border-outline-variant/40 bg-surface transition-all" onclick="selectBudget(this, '$25k - $60k')"><span class="font-headline-sm text-[12px] font-bold block text-on-surface">$25k-$60k</span><span class="font-body-sm text-[10px] text-on-surface-variant">Production MVP</span></div><div class="budget-card cursor-pointer p-2 rounded-xl border text-center border-outline-variant/40 bg-surface transition-all" onclick="selectBudget(this, '$60k+')"><span class="font-headline-sm text-[12px] font-bold block text-on-surface">$60k+</span><span class="font-body-sm text-[10px] text-on-surface-variant">Full Enterprise</span></div></div></div><!-- Section 4: Project Specs & Requirements --><div class="flex flex-col gap-space-xs"><label class="font-headline-sm text-[14px] font-bold text-on-surface">4. Project Specifications</label><textarea class="w-full px-3.5 py-2.5 rounded-xl bg-surface border border-outline-variant/50 text-on-surface font-body-md placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary" id="input-specs" placeholder="Briefly describe your objectives, existing stack, and expected timelines..." required="" rows="3"></textarea></div><!-- Section 5: Mock File Dropzone --><div class="flex flex-col gap-space-xs"><label class="font-headline-sm text-[14px] font-bold text-on-surface">5. Architecture or RFP Specs (Optional)</label><div class="w-full p-4 rounded-xl border-2 border-dashed border-outline-variant/60 bg-surface flex flex-col items-center justify-center gap-1 text-center cursor-pointer hover:border-primary/60 transition-colors"><span class="material-symbols-outlined text-primary text-[28px]">cloud_upload</span><span class="font-body-sm text-[12px] font-semibold text-on-surface">Click to upload RFP or diagrams</span><span class="font-body-sm text-[10px] text-on-surface-variant">PDF, DOCX, PNG up to 25MB</span></div></div><!-- NDA and Agreement --><div class="flex items-start gap-2 pt-1"><input checked="" class="mt-1 rounded text-primary focus:ring-primary" id="nda-checkbox" type="checkbox"/><label class="font-body-sm text-[12px] text-on-surface-variant leading-snug" for="nda-checkbox">
+              Request automated mutual Non-Disclosure Agreement (NDA) prior to technical briefing.
+            </label></div><!-- Submit Button --><button class="w-full h-12 rounded-full bg-gradient-to-r from-primary-container via-secondary to-tertiary text-on-primary font-body-md font-bold flex items-center justify-center gap-space-xs shadow-[0_6px_20px_-3px_rgba(113,42,226,0.35)] active:scale-[0.98] transition-transform mt-space-2xs" type="submit"><span>Submit Discovery Request</span><span class="material-symbols-outlined text-[18px]">send</span></button></form><!-- Confirmation Toast Modal (Hidden by default) --><div class="hidden p-space-md rounded-2xl bg-surface-container-highest border border-primary/30 shadow-xl flex flex-col gap-space-xs animate-fadeIn" id="submit-toast"><div class="flex items-center gap-2 text-primary font-bold"><span class="material-symbols-outlined text-[24px]">verified</span><span class="font-headline-sm text-[16px]">Inquiry Logged Successfully!</span></div><p class="font-body-sm text-on-surface-variant">Your technical discovery request has been routed to our solution engineering squad. Reference code generated: <strong class="font-label-code text-primary">KLM-9842</strong>.</p><div class="flex items-center gap-space-xs pt-space-2xs"><button class="flex-1 py-2 rounded-xl bg-primary text-on-primary font-body-sm text-[12px] font-bold flex items-center justify-center gap-1 active:scale-95" onclick="switchView('view-dashboard')"><span>Track in Dashboard</span><span class="material-symbols-outlined text-[16px]">arrow_forward</span></button><button class="px-space-sm py-2 rounded-xl bg-surface text-on-surface font-body-sm text-[12px] font-semibold border border-outline-variant/40" onclick="resetInquiryForm()">New Request</button></div></div><div class="w-full rounded-2xl bg-surface-container-lowest border border-outline-variant/20 p-space-sm flex flex-col items-center gap-space-2xs shadow-[0_2px_10px_rgba(0,0,0,0.03)]"><div class="flex items-center gap-1 font-label-code text-[10px] font-bold text-on-surface-variant tracking-wider"><span class="material-symbols-outlined text-[14px] text-primary">hub</span>KAALA MITHRA • AI TECH SOLUTION</div><div class="flex items-center justify-center gap-x-3 gap-y-1 flex-wrap"><a href="tel:+916361842299" class="flex items-center gap-1 font-body-sm text-[11px] font-bold text-primary"><span class="material-symbols-outlined text-[14px]">call</span>+91 63618 42299</a><a href="mailto:tech@kaalamithra-ai.com" class="flex items-center gap-1 font-body-sm text-[11px] font-bold text-primary"><span class="material-symbols-outlined text-[14px]">mail</span>tech@kaalamithra-ai.com</a><a href="https://www.kaalamithra-ai.com" target="_blank" rel="noopener" class="flex items-center gap-1 font-body-sm text-[11px] font-bold text-primary"><span class="material-symbols-outlined text-[14px]">language</span>www.kaalamithra-ai.com</a></div></div></div></div><!-- ==================== VIEW 4: DASHBOARD & TRACKER ==================== --><div class="view-panel hidden flex-col w-full animate-fadeIn" id="view-dashboard"><div class="px-gutter-mobile pt-space-md flex flex-col gap-space-lg"><!-- Dashboard Header --><div class="flex flex-col gap-space-2xs"><div class="inline-flex items-center gap-space-2xs py-1 px-space-sm rounded-full bg-primary-fixed/40 self-start"><span class="font-label-code text-label-code text-primary font-bold">CLIENT ENTERPRISE PORTAL</span></div><div class="flex items-center justify-between"><h1 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface font-bold tracking-tight">
+            Requests &amp; Quotes
+          </h1><button class="px-3 py-1.5 rounded-full bg-primary text-on-primary font-body-sm text-[11px] font-bold flex items-center gap-1 shadow-sm active:scale-95 transition-all" onclick="switchView('view-inquire')"><span class="material-symbols-outlined text-[14px]">add</span><span>New Inquiry</span></button></div><p class="font-body-sm text-body-sm text-on-surface-variant">Live telemetry and SLA pipeline of your enterprise project inquiries.</p></div><!-- 4 High-Level Metrics --><div class="grid grid-cols-2 gap-space-xs"><div class="p-space-md rounded-2xl bg-surface-container-lowest border border-outline-variant/20 shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex flex-col"><span class="font-body-sm text-[11px] text-on-surface-variant">Total Inquiries</span><span class="font-headline-lg text-headline-lg text-on-surface font-bold" id="metric-total">128</span><span class="font-label-code text-[10px] text-primary flex items-center gap-0.5 mt-1"><span class="material-symbols-outlined text-[12px]">trending_up</span>+12 this week</span></div><div class="p-space-md rounded-2xl bg-surface-container-lowest border border-outline-variant/20 shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex flex-col"><span class="font-body-sm text-[11px] text-on-surface-variant">Active Quotes</span><span class="font-headline-lg text-headline-lg text-secondary font-bold">42</span><span class="font-label-code text-[10px] text-secondary flex items-center gap-0.5 mt-1"><span class="material-symbols-outlined text-[12px]">schedule</span>Avg SLA 2.4 hrs</span></div><div class="p-space-md rounded-2xl bg-surface-container-lowest border border-outline-variant/20 shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex flex-col"><span class="font-body-sm text-[11px] text-on-surface-variant">In Review</span><span class="font-headline-lg text-headline-lg text-tertiary font-bold">15</span><span class="font-label-code text-[10px] text-tertiary flex items-center gap-0.5 mt-1"><span class="material-symbols-outlined text-[12px]">engineering</span>Architect Squad</span></div><div class="p-space-md rounded-2xl bg-surface-container-lowest border border-outline-variant/20 shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex flex-col"><span class="font-body-sm text-[11px] text-on-surface-variant">Pipeline Value</span><span class="font-headline-lg text-headline-lg text-primary-container font-bold">$240k</span><span class="font-label-code text-[10px] text-primary-container flex items-center gap-0.5 mt-1"><span class="material-symbols-outlined text-[12px]">check_circle</span>8 Signed</span></div></div><!-- Filter Tabs --><div class="flex items-center gap-space-xs border-b border-surface-container pb-space-2xs overflow-x-auto no-scrollbar"><button class="dashboard-filter-btn px-3 py-1.5 rounded-full text-body-sm text-[12px] font-bold bg-primary text-on-primary" onclick="filterDashboard(this, 'all')">All (128)</button><button class="dashboard-filter-btn px-3 py-1.5 rounded-full text-body-sm text-[12px] font-semibold text-on-surface-variant hover:bg-surface-container" onclick="filterDashboard(this, 'Active')">Active (42)</button><button class="dashboard-filter-btn px-3 py-1.5 rounded-full text-body-sm text-[12px] font-semibold text-on-surface-variant hover:bg-surface-container" onclick="filterDashboard(this, 'Review')">Under Review (15)</button><button class="dashboard-filter-btn px-3 py-1.5 rounded-full text-body-sm text-[12px] font-semibold text-on-surface-variant hover:bg-surface-container" onclick="filterDashboard(this, 'Completed')">Completed (71)</button></div><!-- Inquiry List Cards Container --><div class="flex flex-col gap-space-sm" id="inquiries-list"><!-- Card 1 --><div class="inquiry-item rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_4px_16px_rgba(0,0,0,0.03)] border border-outline-variant/20 flex flex-col gap-space-xs" data-status="Active"><div class="flex items-center justify-between"><div class="flex items-center gap-space-2xs"><span class="font-label-code text-primary font-bold text-[12px]">KLM-9842</span><span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-secondary font-label-code text-[10px] font-bold">Active Quote</span></div><span class="font-body-sm text-[11px] text-on-surface-variant">10m ago</span></div><div class="flex items-center gap-space-xs"><img src="images/service-generative-ai.jpg" alt="RAG orchestrator" loading="lazy" class="w-11 h-11 rounded-xl object-cover flex-shrink-0 shadow-sm border border-outline-variant/30"/><h4 class="font-title-md text-on-surface font-bold text-[15px] leading-snug">Multi-Agent RAG Orchestrator</h4></div><p class="font-body-sm text-on-surface-variant text-[12px]">Client: FinEdge Systems • Budget: $25k-$60k • Lead: Dr. K. Raman</p><div class="flex items-center justify-between pt-space-2xs border-t border-surface-container mt-1"><div class="flex items-center gap-1 text-[11px] text-on-surface-variant"><span class="material-symbols-outlined text-secondary text-[14px]">bolt</span><span>Proposal Ready for Review</span></div><button class="px-2.5 py-1 rounded-lg bg-surface-container text-primary font-body-sm text-[11px] font-bold active:bg-primary-fixed" onclick="showQuickDetail('KLM-9842', 'Multi-Agent RAG Orchestrator', '$38,500', 'Active Proposal sent on Dec 18.')">View Specs</button></div></div><!-- Card 2 --><div class="inquiry-item rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_4px_16px_rgba(0,0,0,0.03)] border border-outline-variant/20 flex flex-col gap-space-xs" data-status="Review"><div class="flex items-center justify-between"><div class="flex items-center gap-space-2xs"><span class="font-label-code text-primary font-bold text-[12px]">KLM-9831</span><span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-code text-[10px] font-bold">Review</span></div><span class="font-body-sm text-[11px] text-on-surface-variant">3h ago</span></div><div class="flex items-center gap-space-xs"><img src="images/service-computer-vision.jpg" alt="Edge vision system" loading="lazy" class="w-11 h-11 rounded-xl object-cover flex-shrink-0 shadow-sm border border-outline-variant/30"/><h4 class="font-title-md text-on-surface font-bold text-[15px] leading-snug">Defect Detection Edge Vision System</h4></div><p class="font-body-sm text-on-surface-variant text-[12px]">Client: OmniScale Manufacturing • Budget: $60k+ • Lead: Sarah Chen</p><div class="flex items-center justify-between pt-space-2xs border-t border-surface-container mt-1"><div class="flex items-center gap-1 text-[11px] text-on-surface-variant"><span class="material-symbols-outlined text-primary text-[14px]">sync</span><span>Feasibility Assessment in progress</span></div><button class="px-2.5 py-1 rounded-lg bg-surface-container text-primary font-body-sm text-[11px] font-bold active:bg-primary-fixed" onclick="showQuickDetail('KLM-9831', 'Defect Detection Edge Vision System', '$72,000', 'Hardware telemetry compatibility review underway.')">View Specs</button></div></div><!-- Card 3 --><div class="inquiry-item rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_4px_16px_rgba(0,0,0,0.03)] border border-outline-variant/20 flex flex-col gap-space-xs" data-status="Completed"><div class="flex items-center justify-between"><div class="flex items-center gap-space-2xs"><span class="font-label-code text-primary font-bold text-[12px]">KLM-9780</span><span class="px-2 py-0.5 rounded-full bg-primary-fixed text-primary font-label-code text-[10px] font-bold">Completed</span></div><span class="font-body-sm text-[11px] text-on-surface-variant">2d ago</span></div><div class="flex items-center gap-space-xs"><img src="images/service-cloud-devops.jpg" alt="Kubernetes migration" loading="lazy" class="w-11 h-11 rounded-xl object-cover flex-shrink-0 shadow-sm border border-outline-variant/30"/><h4 class="font-title-md text-on-surface font-bold text-[15px] leading-snug">Multi-Cloud Kubernetes Migration</h4></div><p class="font-body-sm text-on-surface-variant text-[12px]">Client: HealthPulse Bio • Budget: $10k-$25k • Lead: Alex Mercer</p><div class="flex items-center justify-between pt-space-2xs border-t border-surface-container mt-1"><div class="flex items-center gap-1 text-[11px] text-on-surface-variant"><span class="material-symbols-outlined text-secondary text-[14px]">verified</span><span>Contract Executed • Sprint Started</span></div><button class="px-2.5 py-1 rounded-lg bg-surface-container text-primary font-body-sm text-[11px] font-bold active:bg-primary-fixed" onclick="showQuickDetail('KLM-9780', 'Multi-Cloud Kubernetes Migration', '$22,000', 'Executed agreement &amp; sprint 1 deployed.')">View Specs</button></div></div></div><!-- Live Support Quick Card --><div class="rounded-2xl bg-gradient-to-r from-primary-fixed/40 via-secondary-fixed/30 to-tertiary-fixed/20 p-space-md border border-outline-variant/30 flex items-center justify-between"><div class="flex items-center gap-space-xs"><div class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-[20px]">support_agent</span></div><div><h5 class="font-headline-sm text-[13px] font-bold text-on-surface">Dedicated Architect Helpline</h5><p class="font-body-sm text-[11px] text-on-surface-variant">24/7 Enterprise Tier • <a href="tel:+916361842299" class="font-bold text-primary">+91 63618 42299</a></p></div></div><div class="flex items-center gap-2 flex-shrink-0"><a href="tel:+916361842299" class="w-9 h-9 rounded-full bg-surface-container-lowest text-primary flex items-center justify-center shadow-sm active:scale-95" title="Call helpline"><span class="material-symbols-outlined text-[18px]">call</span></a><a href="https://wa.me/918884014055?text=Hi%20Kaala%20Mithra%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener" class="px-3 py-1.5 rounded-full bg-primary text-on-primary font-body-sm text-[11px] font-bold shadow-sm active:scale-95 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">chat</span>Direct Ping</a></div></div><div class="w-full rounded-2xl bg-surface-container-lowest border border-outline-variant/20 p-space-sm flex flex-col items-center gap-space-2xs shadow-[0_2px_10px_rgba(0,0,0,0.03)]"><div class="flex items-center gap-1 font-label-code text-[10px] font-bold text-on-surface-variant tracking-wider"><span class="material-symbols-outlined text-[14px] text-primary">hub</span>KAALA MITHRA • AI TECH SOLUTION</div><div class="flex items-center justify-center gap-x-3 gap-y-1 flex-wrap"><a href="tel:+916361842299" class="flex items-center gap-1 font-body-sm text-[11px] font-bold text-primary"><span class="material-symbols-outlined text-[14px]">call</span>+91 63618 42299</a><a href="mailto:tech@kaalamithra-ai.com" class="flex items-center gap-1 font-body-sm text-[11px] font-bold text-primary"><span class="material-symbols-outlined text-[14px]">mail</span>tech@kaalamithra-ai.com</a><a href="https://www.kaalamithra-ai.com" target="_blank" rel="noopener" class="flex items-center gap-1 font-body-sm text-[11px] font-bold text-primary"><span class="material-symbols-outlined text-[14px]">language</span>www.kaalamithra-ai.com</a></div></div></div></div></main><!-- CALL ACTION SHEET (responds on every tap, even where tel: links are blocked) -->
+<div id="call-sheet-overlay" class="hidden fixed inset-0 z-[60] items-end justify-center" style="background:rgba(19,27,46,.55);backdrop-filter:blur(2px);" onclick="if(event.target===this)closeCallSheet()"><div class="w-full max-w-md bg-surface-container-lowest rounded-t-3xl p-space-lg pb-8 flex flex-col gap-space-sm shadow-2xl" style="border-top:3px solid #712ae2;"><div class="w-10 h-1 rounded-full bg-outline-variant/60 mx-auto"></div><div class="flex flex-col items-center gap-1 text-center"><div class="w-14 h-14 rounded-full bg-gradient-to-tr from-primary-container via-secondary to-tertiary flex items-center justify-center text-on-primary shadow-lg"><span class="material-symbols-outlined text-[28px]">call</span></div><h3 class="font-headline-sm text-headline-sm text-on-surface font-bold mt-1">Call Kaala Mithra</h3><a id="call-sheet-number" href="tel:+916361842299" class="font-headline-lg-mobile text-headline-lg-mobile text-primary font-bold tracking-tight">+91 63618 42299</a><p id="call-sheet-note" class="font-body-sm text-[12px] text-on-surface-variant">Tap Call below to open your dialer.<br/>If nothing opens, copy the number &amp; dial manually.</p><div class="flex items-center justify-center gap-space-xs bg-surface rounded-2xl p-space-xs border border-outline-variant/30"><img id="call-sheet-qr" src="images/qr-916361842299.png" alt="Scan to call" class="w-24 h-24 rounded-xl bg-white p-1 flex-shrink-0"/><div class="text-left"><div class="font-body-sm text-[12px] font-bold text-on-surface">On a computer?</div><div class="font-body-sm text-[11px] text-on-surface-variant leading-snug">Scan with your phone camera — dialer opens with this number ready.</div></div></div></div><div class="flex flex-col gap-space-xs"><a id="call-sheet-callbtn" href="tel:+916361842299" class="w-full h-12 rounded-full bg-gradient-to-r from-primary-container via-secondary to-tertiary text-on-primary font-body-md font-bold flex items-center justify-center gap-2 shadow-lg active:scale-[0.98]"><span class="material-symbols-outlined">call</span>Call Now</a><div class="flex gap-space-xs"><button id="call-sheet-copybtn" onclick="copyCallNumber(this)" class="flex-1 h-11 rounded-full bg-surface-container text-on-surface font-body-sm text-[12px] font-bold flex items-center justify-center gap-1 active:scale-95 border border-outline-variant/30"><span class="material-symbols-outlined text-[16px]">content_copy</span>Copy Number</button><a id="call-sheet-wa" href="https://wa.me/916361842299" target="_blank" rel="noopener" class="flex-1 h-11 rounded-full bg-[#25D366] text-white font-body-sm text-[12px] font-bold flex items-center justify-center gap-1 active:scale-95"><span class="material-symbols-outlined text-[16px]">chat</span>WhatsApp</a></div><button onclick="closeCallSheet()" class="w-full py-2 text-center font-body-sm text-[12px] font-semibold text-on-surface-variant">Cancel</button></div></div></div><!-- PERSISTENT BOTTOM NAVIGATION BAR (Seamless client-side tab switching) --><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl border-t border-surface-container-high shadow-[0_-4px_20px_rgba(19,27,46,0.05)]"><div class="flex justify-around items-center h-16 px-space-xs"><button class="nav-tab-btn flex flex-col items-center justify-center gap-space-3xs min-w-[44px] min-h-[44px] py-space-3xs px-space-xs transition-colors text-primary font-bold" id="nav-btn-home" onclick="switchView('view-home')"><span class="material-symbols-outlined text-[24px]">home</span><span class="font-body-sm text-[11px] leading-tight">Home</span></button><button class="nav-tab-btn flex flex-col items-center justify-center gap-space-3xs min-w-[44px] min-h-[44px] py-space-3xs px-space-xs text-on-surface-variant transition-colors" id="nav-btn-services" onclick="switchView('view-services')"><span class="material-symbols-outlined text-[24px]">widgets</span><span class="font-body-sm text-[11px] leading-tight">Services</span></button><button class="nav-tab-btn flex flex-col items-center justify-center gap-space-3xs min-w-[44px] min-h-[44px] py-space-3xs px-space-xs text-on-surface-variant transition-colors" id="nav-btn-inquire" onclick="switchView('view-inquire')"><span class="material-symbols-outlined text-[24px]">contact_support</span><span class="font-body-sm text-[11px] leading-tight">Inquire</span></button><button class="nav-tab-btn flex flex-col items-center justify-center gap-space-3xs min-w-[44px] min-h-[44px] py-space-3xs px-space-xs text-on-surface-variant transition-colors" id="nav-btn-dashboard" onclick="switchView('view-dashboard')"><span class="material-symbols-outlined text-[24px]">dashboard</span><span class="font-body-sm text-[11px] leading-tight">Dashboard</span></button></div></nav><!-- JAVASCRIPT STATE MANAGEMENT & CLIENT-SIDE NAVIGATION ROUTER --><script>
+  let currentSelectedBudget = "$10k - $25k";
+  let currentSelectedDomain = "Generative AI & Custom LLMs";
+  let totalInquiryCount = 128;
+
+  function switchView(viewId) {
+    // Hide all view panels
+    document.querySelectorAll('.view-panel').forEach(panel => {
+      panel.classList.add('hidden');
+      panel.classList.remove('flex');
+    });
+
+    // Show target view panel
+    const target = document.getElementById(viewId);
+    if (target) {
+      target.classList.remove('hidden');
+      target.classList.add('flex');
+    }
+
+    // Scroll to top seamlessly
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Update Header subtitle
+    const headerSub = document.getElementById('header-subtitle');
+    const titles = {
+      'view-home': 'Home',
+      'view-services': 'Services Catalog',
+      'view-inquire': 'Inquire & Discovery',
+      'view-dashboard': 'Tracker & Quotes'
+    };
+    if (headerSub && titles[viewId]) {
+      headerSub.textContent = titles[viewId];
+    }
+
+    // Update bottom nav active classes
+    const navMap = {
+      'view-home': 'nav-btn-home',
+      'view-services': 'nav-btn-services',
+      'view-inquire': 'nav-btn-inquire',
+      'view-dashboard': 'nav-btn-dashboard'
+    };
+
+    document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+      btn.classList.remove('text-primary', 'font-bold');
+      btn.classList.add('text-on-surface-variant');
+    });
+
+    const activeNavBtn = document.getElementById(navMap[viewId]);
+    if (activeNavBtn) {
+      activeNavBtn.classList.add('text-primary', 'font-bold');
+      activeNavBtn.classList.remove('text-on-surface-variant');
+    }
+  }
+
+  function requestQuoteForService(serviceName) {
+    switchView('view-inquire');
+    currentSelectedDomain = serviceName;
+
+    // Highlight domain chip matching serviceName
+    const chips = document.querySelectorAll('.domain-chip');
+    chips.forEach(chip => {
+      if (chip.textContent.trim().toLowerCase().includes(serviceName.toLowerCase()) || 
+          serviceName.toLowerCase().includes(chip.textContent.trim().toLowerCase())) {
+        chip.className = "domain-chip px-3 py-1.5 rounded-xl text-body-sm text-[12px] font-semibold border transition-all bg-primary text-on-primary border-primary shadow-sm";
+      } else {
+        chip.className = "domain-chip px-3 py-1.5 rounded-xl text-body-sm text-[12px] font-semibold border transition-all bg-surface text-on-surface-variant border-outline-variant/40";
+      }
+    });
+
+    const specsInput = document.getElementById('input-specs');
+    if (specsInput) {
+      specsInput.value = `Inquiring about our enterprise requirements for ${serviceName}. We are seeking an architectural assessment and quote.`;
+    }
+  }
+
+  function selectDomain(button) {
+    document.querySelectorAll('.domain-chip').forEach(chip => {
+      chip.className = "domain-chip px-3 py-1.5 rounded-xl text-body-sm text-[12px] font-semibold border transition-all bg-surface text-on-surface-variant border-outline-variant/40";
+    });
+    button.className = "domain-chip px-3 py-1.5 rounded-xl text-body-sm text-[12px] font-semibold border transition-all bg-primary text-on-primary border-primary shadow-sm";
+    currentSelectedDomain = button.textContent.trim();
+  }
+
+  function selectBudget(card, tier) {
+    document.querySelectorAll('.budget-card').forEach(c => {
+      c.className = "budget-card cursor-pointer p-2 rounded-xl border text-center border-outline-variant/40 bg-surface transition-all";
+      const h = c.querySelector('span:first-child');
+      if (h) {
+        h.classList.remove('text-primary');
+        h.classList.add('text-on-surface');
+      }
+    });
+    card.className = "budget-card cursor-pointer p-2 rounded-xl border text-center border-primary bg-primary-fixed/20 transition-all";
+    const head = card.querySelector('span:first-child');
+    if (head) {
+      head.classList.add('text-primary');
+      head.classList.remove('text-on-surface');
+    }
+    currentSelectedBudget = tier;
+  }
+
+  function filterServices(query) {
+    const q = query.toLowerCase().trim();
+    const cards = document.querySelectorAll('.service-card');
+    cards.forEach(card => {
+      const match = card.getAttribute('data-name').toLowerCase().includes(q) || card.textContent.toLowerCase().includes(q);
+      card.style.display = match ? 'flex' : 'none';
+    });
+  }
+
+  function filterDashboard(btn, status) {
+    document.querySelectorAll('.dashboard-filter-btn').forEach(b => {
+      b.className = "dashboard-filter-btn px-3 py-1.5 rounded-full text-body-sm text-[12px] font-semibold text-on-surface-variant hover:bg-surface-container";
+    });
+    btn.className = "dashboard-filter-btn px-3 py-1.5 rounded-full text-body-sm text-[12px] font-bold bg-primary text-on-primary";
+
+    const items = document.querySelectorAll('.inquiry-item');
+    items.forEach(item => {
+      if (status === 'all') {
+        item.style.display = 'flex';
+      } else {
+        const itemStatus = item.getAttribute('data-status');
+        item.style.display = itemStatus === status ? 'flex' : 'none';
+      }
+    });
+  }
+
+  // Single-flight guard: one click = exactly one POST.
+  var __inquirySubmitting = false;
+  var __lastInquiryKey = '';
+  var __lastInquiryAt = 0;
+  async function handleFormSubmit(e) {
+    if (e) e.preventDefault();
+    if (__inquirySubmitting) { console.warn('Submit ignored: request already in flight.'); return false; }
+    __inquirySubmitting = true;
+    var submitBtn = document.querySelector('#inquiry-form button[type="submit"]');
+    var origBtnHtml = submitBtn ? submitBtn.innerHTML : '';
+    try {
+      // ---- Collect ACTUAL user-typed values (real IDs from this page's HTML) ----
+      var val = function(id){ var el = document.getElementById(id); return el ? String(el.value || '').trim() : ''; };
+      var name = val('input-name');
+      var email = val('input-email');
+      var phone = val('input-phone');
+      var specs = val('input-specs');
+      if (!name || !email || !specs) {
+        alert('Please fill Name, Work Email and Project Specifications before submitting.');
+        return false;
+      }
+      var service = (typeof currentSelectedDomain !== 'undefined' && String(currentSelectedDomain).trim())
+        ? String(currentSelectedDomain).trim() : 'General Service';
+      var budget = (typeof currentSelectedBudget !== 'undefined' && String(currentSelectedBudget).trim())
+        ? String(currentSelectedBudget).trim() : 'N/A';
+      var ndaEl = document.getElementById('nda-checkbox');
+      var formData = { name: name, email: email, phone: phone, company: '', service: service, budget: budget, message: specs, details: specs, nda: !!(ndaEl && ndaEl.checked) };
+      console.log('OUTGOING INQUIRY PAYLOAD:', formData);
+      var __key = [name, email, phone, specs].join('|');
+      if (__key === __lastInquiryKey && (Date.now() - __lastInquiryAt) < 10000) {
+        console.warn('Duplicate submit ignored (same payload within 10s).');
+        return false;
+      }
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = '<span>Sending...</span>'; }
+      // ---- Exactly ONE fetch per click. Expects backend JSON: { success: true, data: { id, ... } } ----
+      const response = await fetch('http://localhost:5000/api/inquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      const result = await response.json().catch(function(){ return {}; });
+
+      if (response.ok && result.success) {
+        // ---- SUCCESS: backend confirmed the PostgreSQL insert ----
+        __lastInquiryKey = __key; __lastInquiryAt = Date.now();
+        const inqId = (result.data && result.data.id) ? result.data.id : null;
+        // 1) Guaranteed visible success feedback FIRST: toast + real reference ID + popup
+        try {
+          const toast = document.getElementById('submit-toast');
+          const refEl = document.querySelector('#submit-toast strong');
+          if (refEl && inqId) refEl.textContent = 'KLM-' + inqId;
+          const formEl = document.getElementById('inquiry-form');
+          if (formEl) { formEl.reset(); formEl.classList.add('hidden'); }
+          if (toast) { toast.classList.remove('hidden'); toast.style.display = 'flex'; }
+          console.log('DATABASE SUCCESS — Inquiry ID:', inqId);
+          alert('✅ Inquiry submitted successfully!' + (inqId ? '\nReference ID: KLM-' + inqId : '') + '\nYour request has been saved to our database.');
+        } catch (uiErr) {
+          console.error('Success UI error (inquiry WAS saved):', uiErr);
+          alert('✅ Inquiry submitted successfully!' + (inqId ? ' Reference ID: KLM-' + inqId : ''));
+        }
+        // 2) Best-effort dashboard update (can never block the success feedback above)
+        try {
+          totalInquiryCount++;
+          var metricElem = document.getElementById('metric-total');
+          if (metricElem) metricElem.textContent = totalInquiryCount;
+          var list = document.getElementById('inquiries-list');
+          if (list) {
+            var newCard = document.createElement('div');
+            newCard.className = "inquiry-item rounded-2xl bg-surface-container-lowest p-space-md shadow-[0_4px_16px_rgba(0,0,0,0.03)] border-2 border-primary/30 flex flex-col gap-space-xs animate-fadeIn";
+            newCard.setAttribute('data-status', 'Active');
+            var safeSpecs = String(specs).replace(/'/g, "\\'");
+            newCard.innerHTML = `
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-space-2xs">
+                  <span class="font-label-code text-primary font-bold text-[12px]">KLM-9850</span>
+                  <span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-secondary font-label-code text-[10px] font-bold">New Discovery</span>
+                </div>
+                <span class="font-body-sm text-[11px] text-primary font-semibold">Just now</span>
+              </div>
+              <div class="flex items-center gap-2"><img src="images/hero.jpg" alt="New inquiry" class="w-11 h-11 rounded-xl object-cover flex-shrink-0"/><h4 class="font-title-md text-on-surface font-bold text-[15px]">${currentSelectedDomain}</h4></div>
+              <p class="font-body-sm text-on-surface-variant text-[12px]">Client: ${name} (${email}) • Budget: ${currentSelectedBudget} • Priority SLA</p>
+              <div class="flex items-center justify-between pt-space-2xs border-t border-surface-container mt-1">
+                <div class="flex items-center gap-1 text-[11px] text-secondary font-medium">
+                  <span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+                  <span>Allocating AI Architect Squad</span>
+                </div>
+                <button onclick="showQuickDetail('KLM-9850', '${currentSelectedDomain}', '${currentSelectedBudget}', '${safeSpecs}')" class="px-2.5 py-1 rounded-lg bg-primary text-on-primary font-body-sm text-[11px] font-bold active:bg-primary-container">View Details</button>
+              </div>
+            `;
+            list.prepend(newCard);
+          }
+        } catch (cardErr) { console.error('Dashboard card update failed:', cardErr); }
+      } else {
+        // ---- Backend responded, but NOT success: show the ACTUAL backend error ----
+        var backendError = (result && result.error) ? result.error : ('Server responded ' + response.status);
+        console.error('Backend rejected inquiry (' + response.status + '):', backendError);
+        alert('Submission failed: ' + backendError);
+      }
+    } catch (err) {
+      // ---- fetch itself failed (network/backend down) ----
+      console.error('Inquiry submit failed:', err);
+      alert('Unable to connect to the server. Please try again.');
+    } finally {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = origBtnHtml; }
+      __inquirySubmitting = false;
+    }
+    return false;
+  }
+
+  function resetInquiryForm() {
+    const toast = document.getElementById('submit-toast');
+    if (toast) { toast.classList.add('hidden'); toast.style.display = ''; }
+    const formEl = document.getElementById('inquiry-form');
+    if (formEl) { formEl.reset(); formEl.classList.remove('hidden'); }
+  }
+
+  function copyToClipboard(text, btn) {
+    navigator.clipboard.writeText(text).then(() => {
+      const prev = btn.innerHTML;
+      btn.innerHTML = `<span class="material-symbols-outlined text-[14px]">check</span><span>Copied!</span>`;
+      setTimeout(() => { btn.innerHTML = prev; }, 1800);
+    });
+  }
+
+  function showQuickDetail(code, title, budget, note) {
+    alert(`[${code}] ${title}\nEstimated: ${budget}\n\nStatus Note: ${note}`);
+  }
+// ---- Tap-to-call handler: tries the dialer AND shows an action sheet ----
+let currentCallNumber = "+916361842299";
+let currentCallDisplay = "+91 63618 42299";
+document.addEventListener('click', function(e){
+  if(!e.target || !e.target.closest) return;
+  const a = e.target.closest('a[href^="tel:"]');
+  if(!a || a.id === 'call-sheet-number' || a.id === 'call-sheet-callbtn') return;
+  const tappedTel = a.getAttribute('href').replace('tel:','');
+  const tappedDisplay = formatDisplay(tappedTel);
+  const autoCopied = tryAutoCopy(tappedDisplay);
+  openCallSheet(tappedTel, tappedDisplay, autoCopied);
+});
+function openCallSheet(tel, display, autoCopied){
+  const note = document.getElementById('call-sheet-note');
+  const copyBtn = document.getElementById('call-sheet-copybtn');
+  if(autoCopied){
+    if(note){ note.innerHTML = '<span class="font-bold text-green-600">\u2713 Number copied to clipboard!</span><br/>Open your dialer, paste &amp; call. On your phone the dialer opens automatically.'; }
+    if(copyBtn){ copyBtn.innerHTML = '<span class="material-symbols-outlined text-[16px]">check</span>Copied!'; }
+  } else {
+    if(note){ note.innerHTML = 'Tap Call below to open your dialer.<br/>If nothing opens, copy the number &amp; dial manually.'; }
+    if(copyBtn){ copyBtn.innerHTML = '<span class="material-symbols-outlined text-[16px]">content_copy</span>Copy Number'; }
+  }
+  currentCallNumber = tel;
+  currentCallDisplay = display || tel;
+  const numEl = document.getElementById('call-sheet-number');
+  const callBtn = document.getElementById('call-sheet-callbtn');
+  const waBtn = document.getElementById('call-sheet-wa');
+  if(numEl){ numEl.textContent = currentCallDisplay; numEl.setAttribute('href','tel:'+tel); }
+  if(callBtn){ callBtn.setAttribute('href','tel:'+tel); }
+  if(waBtn){ waBtn.setAttribute('href','https://wa.me/'+String(tel).replace(/\D/g,'')+'?text='+encodeURIComponent("Hi Kaala Mithra, I'd like to discuss a project.")); }
+  const qrImg = document.getElementById('call-sheet-qr');
+  if(qrImg){ qrImg.setAttribute('src','images/qr-'+String(tel).replace(/\D/g,'')+'.png'); }
+  const ov = document.getElementById('call-sheet-overlay');
+  if(ov){ ov.classList.remove('hidden'); ov.classList.add('flex'); }
+}
+function closeCallSheet(){
+  const ov = document.getElementById('call-sheet-overlay');
+  if(ov){ ov.classList.add('hidden'); ov.classList.remove('flex'); }
+}
+function formatDisplay(tel){
+  const d = String(tel).replace(/\D/g,'');
+  if(d.length === 12 && d.slice(0,2) === '91'){ return '+91 ' + d.slice(2,7) + ' ' + d.slice(7); }
+  return '+' + d;
+}
+function tryAutoCopy(text){
+  try{
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return !!ok;
+  }catch(err){ return false; }
+}
+function copyCallNumber(btn){
+  const text = currentCallDisplay;
+  const done = function(){
+    const prev = btn.innerHTML;
+    btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">check</span>Copied!';
+    setTimeout(function(){ btn.innerHTML = prev; }, 1800);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(function(){ legacyCopy(text); done(); });
+  } else { legacyCopy(text); done(); }
+}
+function legacyCopy(text) {
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed'; 
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    } catch(err) {}
+  }
+  </script>
+<!-- legacy auth modal markup removed: single auth UI is #auth-gate -->
+<script>
+let authMode = 'login';
+const API_BASE = 'http://localhost:5000';
+function openAuthModal(mode) {
+  if (window.Gate && typeof Gate.show === 'function') { Gate.show('choice'); return; }
+}
+function closeAuthModal() {
+  const m = document.getElementById('auth-modal');
+  if (m) { m.classList.add('hidden'); m.classList.remove('flex'); }
+}
+function showAuthErr(msg) {
+  const e = document.getElementById('auth-err');
+  e.textContent = msg; e.classList.remove('hidden');
+}
+function hideAuthErr() { document.getElementById('auth-err').classList.add('hidden'); }
+async function submitAuth() {
+  hideAuthErr();
+  const btn = document.getElementById('auth-submit');
+  const email = document.getElementById('auth-email').value.trim();
+  const password = document.getElementById('auth-pass').value;
+  const name = document.getElementById('auth-name').value.trim();
+  if (!email || !password) return showAuthErr('Enter email and password.');
+  if (authMode === 'signup' && !name) return showAuthErr('Enter your name.');
+  btn.textContent = 'Please wait...'; btn.disabled = true;
+  try {
+    const url = authMode === 'login' ? API_BASE + '/api/auth/login' : API_BASE + '/api/auth/signup';
+    const body = authMode === 'login' ? { email, password } : { name, email, password };
+    const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    const data = await res.json();
+    if (!res.ok) { showAuthErr(data.error || 'Auth failed.'); return; }
+    localStorage.setItem('km_token', data.token);
+    localStorage.setItem('km_user', JSON.stringify(data.user));
+    refreshAuthUI(); closeAuthModal();
+  } catch (err) { showAuthErr('Cannot reach server at ' + API_BASE); }
+  finally { btn.textContent = authMode === 'login' ? 'Login' : 'Create account'; btn.disabled = false; }
+}
+function logoutUser() {
+  localStorage.removeItem('km_token'); localStorage.removeItem('km_user');
+  refreshAuthUI();
+}
+function refreshAuthUI() {
+  let user = null;
+  try { user = JSON.parse(localStorage.getItem('km_user') || 'null'); } catch (e) {}
+  const loginBtn = document.getElementById('header-login-btn');
+  const logoutBtn = document.getElementById('header-logout-btn');
+  const chip = document.getElementById('header-user-chip');
+  if (user) {
+    if (loginBtn) loginBtn.classList.add('hidden');
+    if (logoutBtn) { logoutBtn.classList.remove('hidden'); logoutBtn.classList.add('flex'); }
+    if (chip) { chip.classList.remove('hidden'); chip.classList.add('flex'); chip.textContent = user.name || user.email; chip.title = user.email; }
+  } else {
+    if (loginBtn) loginBtn.classList.remove('hidden');
+    if (logoutBtn) { logoutBtn.classList.add('hidden'); logoutBtn.classList.remove('flex'); }
+    if (chip) { chip.classList.add('hidden'); chip.classList.remove('flex'); }
+  }
+}
+document.addEventListener('DOMContentLoaded', refreshAuthUI);
+
+</script>
+<script>
+// ============ AUTH GATE LOGIC (real backend session: JWT Bearer + httpOnly cookie) ============
+var GATE_API = 'http://localhost:5000';
+
+var Gate = {
+  visible: false,
+  el: function (id) { return document.getElementById(id); },
+  msg: function (id, text, ok) {
+    var m = this.el(id); if (!m) return;
+    m.textContent = text || '';
+    m.classList.toggle('hidden', !text);
+    m.classList.remove('text-red-600', 'bg-red-50', 'text-green-700', 'bg-green-50');
+    if (text) m.classList.add(ok ? 'text-green-700' : 'text-red-600', ok ? 'bg-green-50' : 'bg-red-50');
+  },
+  switchTo: function (mode) {
+    var w = this.el('gate-welcome'), c = this.el('gate-choice'), l = this.el('gate-login'), s = this.el('gate-signup');
+    if (w) { w.classList.toggle('hidden', mode !== 'welcome'); w.classList.toggle('flex', mode === 'welcome'); }
+    if (c) { c.classList.toggle('hidden', mode !== 'choice'); c.classList.toggle('flex', mode === 'choice'); }
+    if (l) { l.classList.toggle('hidden', mode !== 'login'); l.classList.toggle('flex', mode === 'login'); }
+    if (s) { s.classList.toggle('hidden', mode !== 'signup'); s.classList.toggle('flex', mode === 'signup'); }
+    this.msg('gate-login-msg', ''); this.msg('gate-signup-msg', '');
+  },
+  show: function (mode, notice, ok) {
+    this.visible = true;
+    document.body.classList.add('auth-locked');
+    var g = this.el('auth-gate'); if (g) g.classList.remove('hidden');
+    this.switchTo(mode || 'welcome');
+    if (notice) this.msg(mode === 'signup' ? 'gate-signup-msg' : 'gate-login-msg', notice, ok);
+  },
+  hide: function () {
+    this.visible = false;
+    document.body.classList.remove('auth-locked');
+    var g = this.el('auth-gate'); if (g) g.classList.add('hidden');
+  },
+  saveSession: function (data) {
+    try { localStorage.setItem('km_token', data.token); localStorage.setItem('km_user', JSON.stringify(data.user)); } catch (e) {}
+    if (typeof refreshAuthUI === 'function') refreshAuthUI();
+  },
+  init: async function () {
+    var tk = null;
+    try { tk = localStorage.getItem('km_token'); } catch (e) {}
+    if (!tk) { this.show('welcome'); return; }
+    try {
+      var r = await fetch(GATE_API + '/api/auth/me', { headers: { 'Authorization': 'Bearer ' + tk }, credentials: 'include' });
+      var d = await r.json().catch(function () { return {}; });
+      if (r.ok && d.success && d.user) {
+        try { localStorage.setItem('km_user', JSON.stringify(d.user)); } catch (e) {}
+        this.hide();
+        return;
+      }
+      try { localStorage.removeItem('km_token'); localStorage.removeItem('km_user'); } catch (e) {}
+      if (typeof refreshAuthUI === 'function') refreshAuthUI();
+      this.show('welcome');
+    } catch (e) {
+      this.show('welcome');
+    }
+  },
+  logout: async function () {
+    try { await fetch(GATE_API + '/api/auth/logout', { method: 'POST', credentials: 'include' }); } catch (e) {}
+    try { localStorage.removeItem('km_token'); localStorage.removeItem('km_user'); } catch (e) {}
+    if (typeof refreshAuthUI === 'function') refreshAuthUI();
+    this.show('welcome', 'You have been logged out. Please log in again.');
+  }
+};
+
+function gateValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+function gateValidPhone(v) { var d = String(v).replace(/[^0-9]/g, ''); return d.length >= 10 && d.length <= 15; }
+function gateStrongPassword(v) { return typeof v === 'string' && v.length >= 8 && /[A-Za-z]/.test(v) && /[0-9]/.test(v); }
+function gateSubmitLogin(e) {
+  if (e) e.preventDefault();
+  var email = String((Gate.el('gate-email') || {}).value || '').trim().toLowerCase();
+  var pass = (Gate.el('gate-pass') || {}).value || '';
+  if (!email || !pass) { Gate.msg('gate-login-msg', 'Please enter your email and password.'); return false; }
+  if (!gateValidEmail(email)) { Gate.msg('gate-login-msg', 'Please enter a valid email address.'); return false; }
+  var btn = Gate.el('gate-login-btn');
+  if (btn) { btn.disabled = true; btn.innerHTML = '<span>Signing in...</span>'; }
+  fetch(GATE_API + '/api/auth/login', {
+    method: 'POST', credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email, password: pass })
+  }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); }).then(function (res) {
+    if (res.ok && res.d.success && res.d.token) { Gate.saveSession(res.d); if (res.d.user && res.d.user.role === 'admin') { window.location.href = 'http://localhost:5000/admin/dashboard'; return; } Gate.hide(); }
+    else { Gate.msg('gate-login-msg', (res.d && res.d.error) || 'Invalid email or password.'); }
+  }).catch(function () {
+    Gate.msg('gate-login-msg', 'Cannot reach the server. Please make sure the backend is running.');
+  }).finally(function () {
+    if (btn) { btn.disabled = false; btn.innerHTML = '<span>Login</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span>'; }
+  });
+  return false;
+}
+function gateSubmitSignup(e) {
+  if (e) e.preventDefault();
+  var name = String((Gate.el('gate-name') || {}).value || '').trim();
+  var email = String((Gate.el('gate-email2') || {}).value || '').trim().toLowerCase();
+  var phone = String((Gate.el('gate-phone') || {}).value || '').trim();
+  var pass = (Gate.el('gate-pass2') || {}).value || '';
+  var pass2 = (Gate.el('gate-pass3') || {}).value || '';
+  if (!name || name.length < 2) { Gate.msg('gate-signup-msg', 'Please enter your full name.'); return false; }
+  if (!email || !gateValidEmail(email)) { Gate.msg('gate-signup-msg', 'Please enter a valid email address.'); return false; }
+  if (!phone || !gateValidPhone(phone)) { Gate.msg('gate-signup-msg', 'Please enter a valid phone number (10-15 digits).'); return false; }
+  if (!gateStrongPassword(pass)) { Gate.msg('gate-signup-msg', 'Password must be at least 8 characters and include letters and numbers.'); return false; }
+  if (pass !== pass2) { Gate.msg('gate-signup-msg', 'Password and confirm password do not match.'); return false; }
+  var btn = Gate.el('gate-signup-btn');
+  if (btn) { btn.disabled = true; btn.innerHTML = '<span>Creating account...</span>'; }
+  fetch(GATE_API + '/api/auth/signup', {
+    method: 'POST', credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: name, email: email, phone: phone, password: pass })
+  }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); }).then(function (res) {
+    if (res.ok && res.d.success && res.d.token) {
+      Gate.saveSession(res.d); Gate.hide();
+      alert('Account created successfully. Welcome to Kaala Mithra AI Tech Solutions!');
+    } else {
+      Gate.msg('gate-signup-msg', (res.d && res.d.error) || 'Could not create the account. Please try again.');
+    }
+  }).catch(function () {
+    Gate.msg('gate-signup-msg', 'Cannot reach the server. Please make sure the backend is running.');
+  }).finally(function () {
+    if (btn) { btn.disabled = false; btn.innerHTML = '<span>Create Account</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span>'; }
+  });
+  return false;
+}
+
+function gateForgotPassword() {
+  Gate.msg('gate-login-msg', 'Password resets are handled by support. Email tech@kaalamithra-ai.com from your registered address.', true);
+}
+
+// Session check on every page load (survives refresh; expired/invalid -> Login screen).
+document.addEventListener('DOMContentLoaded', function () { Gate.init(); });
+
+// Header "Login" button + old modal entry points now open the professional gate.
+function openAuthModal(mode) { Gate.show(mode === 'signup' ? 'signup' : 'login'); }
+</script>
+<script>
+// Entry-flow guard: the FIRST paint must be the Welcome gate, never a cached/bfcache login screen.
+(function () {
+  try { window.addEventListener('unload', function () {}, false); } catch (e) {} // disables bfcache restore of stale DOM
+  window.addEventListener('pageshow', function (ev) { if (ev && ev.persisted) { try { window.location.reload(); } catch (e) {} } });
+  function assertWelcome() {
+    try {
+      var g = document.getElementById('auth-gate');
+      if (!g) return;
+      var hasToken = false;
+      try { hasToken = !!localStorage.getItem('km_token'); } catch (e) {}
+      if (hasToken) return; // valid session -> Gate.init decides (app or gate)
+      document.body.classList.add('auth-locked');
+      g.classList.remove('hidden');
+      if (window.Gate && typeof Gate.show === 'function') Gate.show('welcome');
+    } catch (e) {}
+  }
+  document.addEventListener('DOMContentLoaded', function () { setTimeout(assertWelcome, 60); });
+  window.addEventListener('load', function () { setTimeout(assertWelcome, 60); });
+})();
+</script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</body>
+</html>

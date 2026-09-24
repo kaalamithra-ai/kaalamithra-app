@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Client Login — Kaalamithra</title>
+<style>
+* { box-sizing:border-box; }
+body { margin:0; font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif; background:linear-gradient(135deg,#0f172a,#1e3a8a 60%,#312e81); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; }
+.card { width:100%; max-width:420px; background:#fff; border-radius:18px; padding:32px 30px; box-shadow:0 20px 60px rgba(0,0,0,.35); }
+h1 { font-size:22px; margin:0; }
+.sub { color:#64748b; font-size:13.5px; margin:4px 0 20px; }
+label { display:block; font-size:13px; font-weight:600; color:#334155; margin:14px 0 6px; }
+input { width:100%; padding:12px 13px; border:1.5px solid #e2e8f0; border-radius:10px; font-size:14.5px; outline:none; }
+button { width:100%; margin-top:20px; padding:13px; border:0; border-radius:10px; font-size:15px; font-weight:700; color:#fff; background:linear-gradient(135deg,#2563eb,#7c3aed); cursor:pointer; }
+button:disabled { opacity:.65; }
+.msg { display:none; margin-top:14px; padding:11px 12px; border-radius:10px; font-size:13.5px; }
+.msg.err { display:block; background:#fef2f2; color:#dc2626; border:1px solid #fecaca; }
+.msg.ok { display:block; background:#f0fdf4; color:#15803d; border:1px solid #bbf7d0; }
+.links { margin-top:14px; font-size:13px; text-align:center; color:#64748b; }
+.links a { color:#2563eb; text-decoration:none; font-weight:600; }
+  .pass-wrap { position: relative; }
+  .pass-wrap input { padding-right: 40px; }
+  .eye-btn { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; padding: 4px; color: #64748b; width: auto !important; margin: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .eye-btn:hover { color: #0066cc; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Client Login</h1>
+  <div class="sub">Kaalamithra AI Tech Solutions — track your requests.</div>
+  <form onsubmit="return doLogin(event)" autocomplete="off">
+    <label for="email">Email</label>
+    <input id="email" type="email" autocomplete="off" placeholder="you@example.com" />
+    <label for="pass">Password</label>
+    <div class="pass-wrap">
+        <input id="pass" type="password" autocomplete="new-password" placeholder="Enter password" style="padding-right:44px" /><button type="button" class="eye-btn" onclick="togglePass('pass')" aria-label="Show password">
+          <svg class="eye-on" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg class="eye-off" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+        </button>
+      </div>
+    <div id="msg" class="msg"></div>
+    <button id="btn" type="submit">Sign in</button>
+  </form>
+  <div class="links"><a href="/client/login">Have an account? Log in</a> &nbsp;·&nbsp; New here? use the app signup (role is always client).</div>
+</div>
+<script>
+var API = location.origin;
+function show(t, ok) { var m = document.getElementById('msg'); m.textContent = t || ''; m.className = 'msg ' + (ok ? 'ok' : 'err'); }
+fetch(API + '/api/client/me', { credentials: 'include' })
+  .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+  .then(function (x) { if (x.ok && x.d.success) location.replace('/client/dashboard'); })
+  .catch(function () {});
+function doLogin(e) {
+  if (e) e.preventDefault();
+  var email = document.getElementById('email').value.trim();
+  var pass = document.getElementById('pass').value;
+  if (!email || !pass) { show('Please enter email and password.'); return false; }
+  var btn = document.getElementById('btn'); btn.disabled = true; btn.textContent = 'Signing in...';
+  fetch(API + '/api/client/login', { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, password: pass }) })
+    .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+    .then(function (x) {
+      if (x.ok && x.d.success) { try { localStorage.setItem('km_client_token', x.d.token); } catch (e) {} location.replace('/client/dashboard'); }
+      else show((x.d && x.d.error) || 'Invalid email or password.');
+    }).catch(function () { show('Cannot reach server.'); })
+    .finally(function () { btn.disabled = false; btn.textContent = 'Sign in'; });
+  return false;
+}
+
+function togglePass(id) {
+  var input = document.getElementById(id);
+  var isPassword = input.type === "password";
+  input.type = isPassword ? "text" : "password";
+  var icons = (input.parentElement ? input.parentElement.querySelector(".eye-btn") : null) || document.querySelector("#" + id + " ~ button");
+  if (icons) {
+    var on = icons.querySelector(".eye-on"), off = icons.querySelector(".eye-off");
+    if (on && off) { on.style.display = isPassword ? "none" : "block"; off.style.display = isPassword ? "block" : "none"; }
+    icons.setAttribute("aria-label", isPassword ? "Hide password" : "Show password");
+  }
+}
+</script>
+</body>
+</html>

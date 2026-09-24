@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Login — Kaalamithra AI Tech Solutions</title>
+<style>
+* { box-sizing: border-box; }
+body { margin:0; font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif; background:linear-gradient(135deg,#0f172a,#1e1b4b 55%,#312e81); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; color:#0f172a; }
+.card { width:100%; max-width:480px; background:#fff; border-radius:20px; padding:36px 32px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,.35); }
+.logo { width:58px; height:58px; margin:0 auto 10px; border-radius:16px; background:linear-gradient(135deg,#2563eb,#7c3aed); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:26px; }
+h1 { font-size:22px; margin:0; letter-spacing:.06em; }
+.tag { color:#7c3aed; font-size:11.5px; font-weight:700; letter-spacing:.14em; margin:6px 0 2px; }
+.sub { color:#64748b; font-size:13.5px; margin:8px 0 24px; }
+label { display:block; font-size:13px; font-weight:600; color:#334155; margin:14px 0 6px; text-align:left; }
+input { width:100%; padding:12px 13px; border:1.5px solid #e2e8f0; border-radius:10px; font-size:14.5px; outline:none; }
+input:focus { border-color:#2563eb; }
+button[type=submit] { width:100%; margin-top:20px; padding:14px; border:0; border-radius:12px; font-size:15px; font-weight:700; color:#fff; background:linear-gradient(135deg,#0f172a,#312e81); cursor:pointer; }
+button[type=submit]:disabled { opacity:.65; }
+.msg { display:none; margin-top:14px; padding:11px 12px; border-radius:10px; font-size:13.5px; }
+.msg.err { display:block; background:#fef2f2; color:#dc2626; border:1px solid #fecaca; }
+.msg.ok { display:block; background:#f0fdf4; color:#15803d; border:1px solid #bbf7d0; }
+.pass-wrap { position:relative; }
+.pass-wrap input { padding-right:44px; }
+.eye-btn { position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; padding:4px; color:#64748b; width:auto; margin:0; display:flex; align-items:center; justify-content:center; }
+.eye-btn:hover { color:#2563eb; }
+.back { display:block; margin-top:16px; font-size:13px; color:#64748b; text-decoration:none; }
+.note { margin-top:10px; font-size:12px; color:#94a3b8; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">K</div>
+  <h1>KAALAMITHRA</h1>
+  <div class="tag">AI TECH SOLUTIONS &bull; IDEA TODAY. IMPACT TOMORROW.</div>
+  <div class="sub"><b>LOGIN</b><br/>Sign in to continue.</div>
+  <form id="loginForm" onsubmit="return doLogin(event)" autocomplete="off">
+    <label for="email">Email</label>
+    <input id="email" type="email" autocomplete="off" placeholder="you@example.com" />
+    <label for="pass">Password</label>
+    <div class="pass-wrap">
+      <input id="pass" type="password" autocomplete="new-password" placeholder="Enter password" />
+      <button type="button" class="eye-btn" onclick="togglePass('pass')" aria-label="Show password">
+        <svg class="eye-on" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        <svg class="eye-off" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+      </button>
+    </div>
+    <div id="msg" class="msg"></div>
+    <button id="btn" type="submit">Login</button>
+  </form>
+  <a class="back" href="/welcome">&larr; Back to Welcome</a>
+  <div class="note">Admin credentials open the admin dashboard &mdash; every other account stays in the web app.</div>
+  <div class="note">New here? <a href="/signup">Create a client account</a>.</div>
+</div>
+<script>
+// ONE login for everyone: the stored credentials decide the destination.
+//   admin  -> /admin/dashboard (token handed over via ?token=)
+//   client -> /client/dashboard (the web app: profile + inquiries)
+var API = location.origin;
+function show(t, ok) { var m = document.getElementById('msg'); m.textContent = t || ''; m.className = 'msg ' + (ok ? 'ok' : 'err'); }
+function go(u) { location.replace(u); }
+
+// Already signed in? Skip the form entirely.
+fetch(API + '/api/auth/me', { credentials: 'include' })
+  .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+  .then(function (x) {
+    if (!x.ok || !x.d.success || !x.d.user) return;
+    var role = String(x.d.user.role || '').trim().toLowerCase();
+    if (role === 'admin') go('/admin/dashboard');
+    else if (role === 'client') go('/client/dashboard');
+  })
+  .catch(function () {});
+
+function doLogin(e) {
+  if (e) e.preventDefault();
+  var email = document.getElementById('email').value.trim().toLowerCase();
+  var pass = document.getElementById('pass').value;
+  if (!email || !pass) { show('Please enter your email and password.'); return false; }
+  var btn = document.getElementById('btn'); btn.disabled = true; btn.textContent = 'Signing in...';
+  fetch(API + '/api/auth/login', {
+    method: 'POST', credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email, password: pass })
+  }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); }).then(function (x) {
+    if (!(x.ok && x.d.success && x.d.token)) { show((x.d && x.d.error) || 'Invalid email or password.'); return; }
+    var role = String(x.d.role || (x.d.user && x.d.user.role) || 'client').trim().toLowerCase();
+    if (role === 'admin') {
+      try { localStorage.setItem('km_admin_token', x.d.token); } catch (err) {}
+      go('/admin/dashboard?token=' + encodeURIComponent(x.d.token));
+      return;
+    }
+    try {
+      localStorage.setItem('km_token', x.d.token);
+      localStorage.setItem('km_client_token', x.d.token);
+      localStorage.setItem('km_user', JSON.stringify(x.d.user || null));
+    } catch (err) {}
+    go('/client/dashboard');
+  }).catch(function () { show('Cannot reach server.'); })
+    .finally(function () { btn.disabled = false; btn.textContent = 'Login'; });
+  return false;
+}
+
+function togglePass(id) {
+  var x = document.getElementById(id); if (!x) return;
+  var isPw = x.type === 'password';
+  x.type = isPw ? 'text' : 'password';
+  var b = x.parentElement ? x.parentElement.querySelector('.eye-btn') : null;
+  if (b) {
+    var on = b.querySelector('.eye-on'), off = b.querySelector('.eye-off');
+    if (on && off) { on.style.display = isPw ? 'none' : 'inline'; off.style.display = isPw ? 'inline' : 'none'; }
+    b.setAttribute('aria-label', isPw ? 'Hide password' : 'Show password');
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sign Up — Kaalamithra AI Tech Solutions</title>
+<style>
+* { box-sizing:border-box; }
+body { margin:0; font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif; background:linear-gradient(135deg,#0f172a,#1e3a8a 60%,#312e81); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; }
+.card { width:100%; max-width:460px; background:#fff; border-radius:18px; padding:32px 30px; box-shadow:0 20px 60px rgba(0,0,0,.35); }
+h1 { font-size:22px; margin:0; }
+.sub { color:#64748b; font-size:13.5px; margin:4px 0 8px; }
+label { display:block; font-size:13px; font-weight:600; color:#334155; margin:13px 0 6px; }
+input { width:100%; padding:12px 13px; border:1.5px solid #e2e8f0; border-radius:10px; font-size:14.5px; outline:none; }
+input:focus { border-color:#2563eb; }
+.roles { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px; }
+.role { border:1.5px solid #e2e8f0; border-radius:10px; padding:11px; text-align:center; font-size:13.5px; font-weight:700; cursor:pointer; color:#475569; }
+.role.sel { border-color:#2563eb; background:#eff6ff; color:#1d4ed8; }
+.role.locked { opacity:.55; cursor:not-allowed; }
+button.go { width:100%; margin-top:20px; padding:13px; border:0; border-radius:10px; font-size:15px; font-weight:700; color:#fff; background:linear-gradient(135deg,#2563eb,#7c3aed); cursor:pointer; }
+button.go:disabled { opacity:.65; }
+.msg { display:none; margin-top:14px; padding:11px 12px; border-radius:10px; font-size:13.5px; }
+.msg.err { display:block; background:#fef2f2; color:#dc2626; border:1px solid #fecaca; }
+.msg.ok { display:block; background:#f0fdf4; color:#15803d; border:1px solid #bbf7d0; }
+.links { margin-top:14px; font-size:13px; text-align:center; color:#64748b; }
+.links a { color:#2563eb; text-decoration:none; font-weight:600; }
+.secure { margin-top:10px; font-size:12px; color:#94a3b8; text-align:center; }
+  .pass-wrap { position: relative; }
+  .pass-wrap input { padding-right: 40px; }
+  .eye-btn { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; padding: 4px; color: #64748b; }
+  .eye-btn:hover { color: #0066cc; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Create account</h1>
+  <div class="sub">Kaalamithra AI Tech Solutions — public signup always creates a <b>CLIENT</b> account.</div>
+  <form onsubmit="return doSignup(event)">
+    <label for="name">Full Name</label>
+    <input id="name" autocomplete="name" placeholder="Your full name" />
+    <label for="email">Email</label>
+    <input id="email" type="email" autocomplete="email" placeholder="you@example.com" />
+    <label for="phone">Phone Number</label>
+    <input id="phone" autocomplete="tel" placeholder="10-15 digits" />
+    <label for="p1">Password</label>
+    <div class="pass-wrap"><input id="p1" type="password" autocomplete="new-password" placeholder="Min 8 chars, letters + numbers" style="padding-right:44px" /><button type="button" class="eye-btn" onclick="togglePass('p1')" aria-label="Show password"><svg class="eye-on" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><svg class="eye-off" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19M1 1l22 22"/></svg></button></div>
+    <label for="p2">Confirm Password</label>
+    <div class="pass-wrap"><input id="p2" type="password" autocomplete="new-password" placeholder="Repeat password" style="padding-right:44px" /><button type="button" class="eye-btn" onclick="togglePass('p2')" aria-label="Show password"><svg class="eye-on" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><svg class="eye-off" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19M1 1l22 22"/></svg></button></div>
+    <div id="msg" class="msg"></div>
+    <button class="go" id="btn" type="submit">SIGN UP</button>
+  </form>
+  <div class="secure">Passwords are bcrypt-hashed on the server.</div>
+  <div class="links"><a href="/client/login">Have an account? Log in</a> &nbsp;·&nbsp; <a href="/welcome">&larr; Welcome</a></div>
+</div>
+<script>
+var API = location.origin;
+function show(t, ok) { var m = document.getElementById('msg'); m.textContent = t || ''; m.className = 'msg ' + (ok ? 'ok' : 'err'); }
+fetch(API + '/api/auth/me', { credentials: 'include' })
+  .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+  .then(function (x) {
+    if (x.ok && x.d.success) location.replace('/client/dashboard');
+  }).catch(function () {});
+function doSignup(e) {
+  if (e) e.preventDefault();
+  var name = document.getElementById('name').value.trim();
+  var email = document.getElementById('email').value.trim();
+  var phone = document.getElementById('phone').value.trim();
+  var p1 = document.getElementById('p1').value, p2 = document.getElementById('p2').value;
+  if (!name || !email || !phone || !p1 || !p2) { show('Please fill all fields.'); return false; }
+  if (p1 !== p2) { show('Password and confirm password do not match.'); return false; }
+  var btn = document.getElementById('btn'); btn.disabled = true; btn.textContent = 'Creating account...';
+  fetch(API + '/api/auth/signup', { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: name, email: email, phone: phone, password: p1 }) })
+    .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+    .then(function (x) {
+      if (x.ok && x.d.success) {
+        try { localStorage.removeItem('km_client_token'); } catch (e) {}
+        try { fetch(API + '/api/auth/logout', { method: 'POST', credentials: 'include' }); } catch (e) {}
+        show('Account created successfully. Please login.', true);
+        setTimeout(function () { location.replace('/client/login'); }, 500);
+      } else show((x.d && x.d.error) || 'Could not create account.');
+    }).catch(function () { show('Cannot reach server.'); })
+    .finally(function () { btn.disabled = false; btn.textContent = 'SIGN UP'; });
+  return false;
+}
+  function togglePass(id) {
+    var input = document.getElementById(id);
+    var isPassword = input.type === 'password';
+    input.type = isPassword ? 'text' : 'password';
+    var btn = input.parentElement.querySelector('.eye-btn');
+    if (isPassword) {
+      btn.querySelector('.eye-on').style.display = 'none';
+      btn.querySelector('.eye-off').style.display = 'inline-block';
+    } else {
+      btn.querySelector('.eye-on').style.display = 'inline-block';
+      btn.querySelector('.eye-off').style.display = 'none';
+    }
+  }
+</script>
+</body>
+</html>
