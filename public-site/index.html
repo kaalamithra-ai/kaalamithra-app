@@ -55,7 +55,7 @@
             <div class="flex flex-col gap-1">
               <label class="font-label-code text-[11px] font-bold text-on-surface-variant">PASSWORD</label>
               <div class="relative">
-              <input id="gate-pass" name="km-login-pass" type="password" value="" autocomplete="new-password" placeholder="Your password" class="w-full pr-12 px-3.5 py-2.5 rounded-xl bg-surface border border-outline-variant/50 text-on-surface font-body-md placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary">
+              <input id="gate-pass" name="km-login-pass" type="password" value="" autocomplete="current-password" placeholder="Your password" class="w-full pr-12 px-3.5 py-2.5 rounded-xl bg-surface border border-outline-variant/50 text-on-surface font-body-md placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary">
               <button type="button" class="eye-btn absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface" onclick="togglePass('gate-pass')" aria-label="Show password"><span class="eye-on material-symbols-outlined text-[18px]">visibility</span><span class="eye-off material-symbols-outlined text-[18px]" style="display:none">visibility_off</span></button>
               </div>
             </div>
@@ -94,14 +94,14 @@
             <div class="flex flex-col gap-1">
               <label class="font-label-code text-[11px] font-bold text-on-surface-variant">PASSWORD</label>
               <div class="relative">
-              <input id="gate-pass2" type="password" autocomplete="new-password" placeholder="Min 8 characters, letters + numbers" class="w-full pr-12 px-3.5 py-2.5 rounded-xl bg-surface border border-outline-variant/50 text-on-surface font-body-md placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary" />
+              <input id="gate-pass2" name="km-signup-pass" type="password" autocomplete="new-password" placeholder="Min 8 characters, letters + numbers" class="w-full pr-12 px-3.5 py-2.5 rounded-xl bg-surface border border-outline-variant/50 text-on-surface font-body-md placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary" />
               <button type="button" class="eye-btn absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface" onclick="togglePass('gate-pass2')" aria-label="Show password"><span class="eye-on material-symbols-outlined text-[18px]">visibility</span><span class="eye-off material-symbols-outlined text-[18px]" style="display:none">visibility_off</span></button>
               </div>
             </div>
             <div class="flex flex-col gap-1">
               <label class="font-label-code text-[11px] font-bold text-on-surface-variant">CONFIRM PASSWORD</label>
               <div class="relative">
-              <input id="gate-pass3" type="password" autocomplete="new-password" placeholder="Re-enter your password" class="w-full pr-12 px-3.5 py-2.5 rounded-xl bg-surface border border-outline-variant/50 text-on-surface font-body-md placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary" />
+              <input id="gate-pass3" name="km-signup-confirm-pass" type="password" autocomplete="new-password" placeholder="Re-enter your password" class="w-full pr-12 px-3.5 py-2.5 rounded-xl bg-surface border border-outline-variant/50 text-on-surface font-body-md placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary" />
               <button type="button" class="eye-btn absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface" onclick="togglePass('gate-pass3')" aria-label="Show password"><span class="eye-on material-symbols-outlined text-[18px]">visibility</span><span class="eye-off material-symbols-outlined text-[18px]" style="display:none">visibility_off</span></button>
               </div>
             </div>
@@ -626,7 +626,7 @@ var Gate = {
   switchTo: function (mode) {
     try { document.getElementById('gate-login-form').setAttribute('autocomplete', 'off'); } catch (e) {}
     try { var le = document.getElementById('gate-email'); if (le) { le.value = ''; le.setAttribute('autocomplete', 'off'); }
-      var lp = document.getElementById('gate-pass'); if (lp) { lp.value = ''; lp.setAttribute('autocomplete', 'new-password'); } } catch (e) {} // km-clear-login-fields
+      var lp = document.getElementById('gate-pass'); if (lp) { lp.value = ''; lp.setAttribute('autocomplete', 'current-password'); } } catch (e) {} // km-clear-login-fields
     try {
       var le = document.getElementById('gate-email'); if (le) le.value = '';
       var lp = document.getElementById('gate-pass'); if (lp) lp.value = '';
