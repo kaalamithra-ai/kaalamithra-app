@@ -32,6 +32,14 @@ const j = (o) => ({ 'Content-Type': 'application/json' });
   }
   const h = await hit('/api/health');
   console.log('GET  /api/health -> ' + h.status + ' ' + h.body.slice(0, 200));
+  // The dashboards only work once every column they SELECT exists; /api/health
+  // reports them, so a missing column is caught here instead of in the UI.
+  const missing = (h.json && h.json.missing_columns) || [];
+  console.log('schema_ready = ' + (h.json && h.json.schema_ready) + ' missing_columns=' + JSON.stringify(missing));
+  if (h.json && h.json.schema_ready === false) {
+    console.log('SCHEMA_INCOMPLETE — missing: ' + missing.join(', '));
+    process.exit(1);
+  }
   const l = await hit('/api/admin/login', { method: 'POST', headers: j(), body: JSON.stringify({ email: ADMIN_EMAIL, password: ADMIN_PASS }) });
   console.log('POST /api/admin/login -> ' + l.status + ' ' + l.body.slice(0, 160));
   const token = l.json && l.json.token;

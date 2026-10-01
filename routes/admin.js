@@ -4,6 +4,9 @@ const jwt = require('jsonwebtoken');
 const { pool } = require('../lib/db');
 const { sessionCookie, clearSessionCookie } = require('../lib/cookies');
 const { JWT_SECRET, requireAuth, requireAdmin, readToken, roleOf } = require('../middleware/auth');
+// Additive schema self-heal: makes sure inquiries.status / nda_requested /
+// user_id exist before this router SELECTs or filters on them (see lib/schema.js).
+const { ensureSchema } = require('../lib/schema');
 
 const router = express.Router();
 
@@ -72,6 +75,7 @@ router.get('/me', async (req, res) => {
 
 router.get('/stats', requireAuth, requireAdmin, async (req, res) => {
   try {
+    await ensureSchema();
     const total = await pool.query('SELECT count(*)::int AS n FROM inquiries');
     const clients = await pool.query("SELECT count(*)::int AS n FROM users WHERE lower(role)='client'");
     const latest = await pool.query('SELECT max(created_at) AS latest FROM inquiries');
@@ -89,6 +93,7 @@ router.get('/stats', requireAuth, requireAdmin, async (req, res) => {
 // Returns EVERY field the client submitted + the owning client account (from the verified user_id link).
 async function listSubmissions(req, res) {
   try {
+    await ensureSchema();
     const q = String(req.query.q || '').trim();
     const service = String(req.query.service || '').trim();
     const status = String(req.query.status || '').trim();
@@ -121,15 +126,18 @@ router.get('/inquiries', requireAuth, requireAdmin, listSubmissions);
 // Distinct statuses present in the data (drives the filter dropdown — no invented values)
 router.get('/statuses', requireAuth, requireAdmin, async (req, res) => {
   try {
+    await ensureSchema();
     const r = await pool.query('SELECT DISTINCT status FROM inquiries ORDER BY status');
     res.json({ success: true, data: r.rows.map(function (x) { return x.status; }) });
   } catch (e) {
+    console.error('Admin statuses error:', e.message);
     res.status(500).json({ success: false, error: 'Could not load statuses.' });
   }
 });
 
 router.get('/services', requireAuth, requireAdmin, async (req, res) => {
   try {
+    await ensureSchema();
     const r = await pool.query("SELECT DISTINCT service FROM inquiries WHERE service IS NOT NULL AND service <> '' ORDER BY service");
     res.json({ success: true, data: r.rows.map(function (x) { return x.service; }) });
   } catch (e) {
@@ -140,6 +148,7 @@ router.get('/services', requireAuth, requireAdmin, async (req, res) => {
 // Shared detail logic: EVERY submitted field + owning client account (real data, no raw DB exposure to UI).
 async function getSubmissionById(req, res) {
   try {
+    await ensureSchema();
     const id = parseInt(req.params.id, 10);
     if (!Number.isInteger(id) || id <= 0)
       return res.status(400).json({ success: false, error: 'Invalid submission ID.' });

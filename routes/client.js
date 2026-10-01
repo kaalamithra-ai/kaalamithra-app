@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const { pool } = require('../lib/db');
 const { sessionCookie, clearSessionCookie } = require('../lib/cookies');
 const { JWT_SECRET, requireAuth, requireClient, readToken, roleOf } = require('../middleware/auth');
+// Additive schema self-heal (status / nda_requested / user_id) — see lib/schema.js.
+const { ensureSchema } = require('../lib/schema');
 const router = express.Router();
 
 function pub(u) {
@@ -47,6 +49,7 @@ router.get('/me', async (req, res) => {
 });
 router.get('/inquiries', requireAuth, requireClient, async (req, res) => {
   try {
+    await ensureSchema();
     const r = await pool.query(`SELECT id, name, email, phone, company, service, budget, details, status, nda_requested, created_at
                                 FROM inquiries WHERE user_id=$1 OR email=(SELECT email FROM users WHERE id=$1) ORDER BY id DESC LIMIT 200`, [req.user.id]);
     res.json({ success: true, count: r.rowCount, data: r.rows });
@@ -61,6 +64,7 @@ router.get('/profile', requireAuth, requireClient, async (req, res) => {
 });
 router.get('/stats', requireAuth, requireClient, async (req, res) => {
   try {
+    await ensureSchema();
     const r = await pool.query('SELECT count(*)::int AS n, max(created_at) AS latest FROM inquiries WHERE user_id=$1 OR email=(SELECT email FROM users WHERE id=$1)', [req.user.id]);
     res.json({ success: true, myInquiries: r.rows[0].n, latest: r.rows[0].latest });
   } catch (e) { res.status(500).json({ success: false, error: 'Could not load stats.' }); }

@@ -7,6 +7,8 @@ const path = require('path');
 // Run once after setting DATABASE_URL on Vercel, then it reports "already ready".
 const bcrypt = require('bcryptjs');
 const { getPool } = require('../lib/db');
+// Additive schema self-heal shared with boot + the read routes (lib/schema.js).
+const { ensureSchema, schemaStatus } = require('../lib/schema');
 
 module.exports = async function setupHandler(req, res) {
   try {
@@ -34,23 +36,10 @@ module.exports = async function setupHandler(req, res) {
       await pool.query('INSERT INTO schema_migrations (name) VALUES ($1)', [f]);
       applied.push(f);
     }
-    // Same self-heal as local boot (safe on hosted DBs created without these columns).
-    await pool.query(
-      'CREATE TABLE IF NOT EXISTS inquiries (id SERIAL PRIMARY KEY, name TEXT NOT NULL, email TEXT, phone TEXT, company TEXT, service TEXT, budget TEXT, details TEXT, created_at TIMESTAMP DEFAULT NOW())'
-    );
-    await pool.query('ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS company TEXT');
-    await pool.query('ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS phone TEXT');
-    await pool.query('ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS service TEXT');
-    await pool.query('ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS budget TEXT');
-    await pool.query('ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS details TEXT');
-    await pool.query(
-      'CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, name TEXT NOT NULL, email TEXT UNIQUE NOT NULL, password_hash TEXT NOT NULL, created_at TIMESTAMP DEFAULT NOW())'
-    );
-    await pool.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS phone TEXT');
-    await pool.query("ALTER TABLE users ADD COLUMN IF NOT EXISTS role TEXT DEFAULT 'client'");
-    await pool.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS is_active BOOLEAN DEFAULT TRUE');
-    await pool.query("UPDATE users SET role='client' WHERE role IS NULL OR role=''");
-    await pool.query('UPDATE users SET is_active=TRUE WHERE is_active IS NULL');
+    // Same self-heal as local boot and the read routes — single source of truth
+    // in lib/schema.js, so a hosted DB created without these columns (and the
+    // migration 001/002 columns the dashboards SELECT) is repaired here too.
+    await ensureSchema(pool);
     const existing = await pool.query('SELECT id, role FROM users WHERE email=$1', ['admin@kaalamithra-ai.com']);
     let admin = 'exists';
     if (existing.rowCount === 0) {
@@ -64,7 +53,16 @@ module.exports = async function setupHandler(req, res) {
     const counts = await pool.query(
       'SELECT (SELECT count(*)::int FROM users) AS users, (SELECT count(*)::int FROM inquiries) AS inquiries'
     );
-    res.json({ success: true, applied, admin, counts: counts.rows[0] });
+    // Read-only proof that every column the dashboards need now exists.
+    const schema = await schemaStatus(pool);
+    res.json({
+      success: true,
+      applied,
+      admin,
+      counts: counts.rows[0],
+      schema_ready: schema.ready,
+      missing_columns: schema.missing,
+    });
   } catch (e) {
     console.error('Setup error:', e.message);
     res.status(500).json({ success: false, error: e.message });

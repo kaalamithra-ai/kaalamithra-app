@@ -18,7 +18,8 @@ Server runs on `http://localhost:5000` by default.
 - `server.js` — Express app entrypoint
 - `routes/` — `auth.js`, `admin.js`, `client.js`
 - `middleware/auth.js` — JWT auth helpers
-- `migrations/` — SQL migrations (`node run_migrations.js`)
+- `migrations/` — SQL migrations (`node run_migrations.js`); `lib/schema.js`
+  applies the same additive DDL at runtime so hosted DBs heal themselves
 - `public/` — static frontend assets served by the API (if present)
 
 ## Env vars (see `.env.example`)
@@ -54,11 +55,17 @@ node scripts/check_running.js  # verify: /api/health + /welcome + app/index.html
    - `JWT_SECRET`, `ADMIN_SETUP_KEY`
    - `FRONTEND_URL=https://kaalamithra-app.vercel.app`
    - `NODE_ENV=production`
-3. Create tables in the hosted DB once:
+3. Create tables in the hosted DB — normally **not needed**: the app self-heals
+   the schema on every cold start (see "Schema self-heal" below), so the
+   Admin/Client dashboards work even if migrations were never applied. To do it
+   explicitly:
    `DATABASE_URL=<hosted-url> node run_migrations.js`
-   (or run the two files in `migrations/` in the provider SQL editor).
+   (or run the files in `migrations/` — `001`, `002`, `003` — in the provider SQL editor).
 4. Redeploy, then verify:
-   - `GET /api/health` → `{"success":true,"db":"connected",...}`
+   - `GET /api/health` → `{"success":true,"db":"connected",...,"schema_ready":true,"missing_columns":[]}`
+     (`schema_ready:false` names the exact missing columns; until they exist the
+     Admin Dashboard shows "Could not load submissions." while `/api/admin/me`
+     and `/api/health` still return 200)
    - `GET /api/auth/me` → `401` (not a CORS error, not a 500)
    - Login works. If `/api/health` says `DATABASE_URL is not set`,
      the env var is missing on that deployment.
@@ -90,6 +97,30 @@ set KM_PORT=5055&& node scripts/verify_access.js && set KM_PORT=5055&& node scri
 - Row-level scoping is asserted explicitly: a client calling `GET /api/inquiries`
   gets **only** its own rows (matched by `user_id` or by its own `email`), while an
   admin gets all rows. Do not relax this without re-running the suite.
+
+## Schema self-heal (why the dashboard can no longer 500 on schema drift)
+
+The Admin Dashboard reads `inquiries.status`, `inquiries.nda_requested` and
+`inquiries.user_id` (added by migrations `001` + `002`). A hosted database that
+predates those migrations answers those SELECTs with `42703 undefined_column`,
+which the UI showed as **"Could not load submissions."** — while
+`/api/admin/me` and `/api/health` still returned 200, because they only touch
+`users` / `count(*)`. That asymmetry is the fingerprint of this drift.
+
+`lib/schema.js` applies the same additive DDL as migrations `001`–`003` on every
+cold start: `CREATE TABLE IF NOT EXISTS`, `ALTER TABLE ... ADD COLUMN IF NOT
+EXISTS`, NULL-only backfills, indexes and an optional FK. Every read route
+(`/api/admin/stats|submissions|submissions/:id|statuses|services`,
+`/api/client/inquiries`, `/api/inquiries`) awaits it before querying, so no
+request can race ahead of the fix on a serverless cold start. Nothing is ever
+dropped, truncated, renamed or overwritten, and every statement is idempotent —
+running it against an up-to-date database is a no-op.
+
+`migrations/003_admin_read_columns.sql` is the same fix as a standalone SQL file
+for psql / the Neon SQL editor, and `POST /api/setup` runs the heal too.
+
+Confirm on production: `GET /api/health` → `schema_ready: true` and
+`missing_columns: []`.
 
 ## Bootstrapping the hosted database (no psql needed)
 

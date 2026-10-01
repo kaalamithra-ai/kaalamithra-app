@@ -14,6 +14,10 @@ if (!process.env.VERCEL && process.env.DOTENV_CONFIG_OVERRIDE !== 'false') {
 }
 const jwt = require('jsonwebtoken');
 const { pool } = require('./lib/db');
+// Additive schema self-heal (migrations 001/002/003 parity) shared with the
+// read routes so the hosted DB is repaired before any SELECT touches the
+// columns the Admin/Client dashboards need. See lib/schema.js.
+const { ensureSchema, schemaStatus } = require('./lib/schema');
 const { requireAuth, requireAdmin, optionalAuth, roleOf } = require('./middleware/auth');
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
@@ -34,25 +38,15 @@ async function initDb() {
     return;
   }
   try {
-    await pool.query(`CREATE TABLE IF NOT EXISTS inquiries (
-      id SERIAL PRIMARY KEY, name TEXT NOT NULL, email TEXT, phone TEXT,
-      company TEXT, service TEXT, budget TEXT, details TEXT, created_at TIMESTAMP DEFAULT NOW())`);
-    // Self-heal columns if table was created earlier without company
-    await pool.query(`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS company TEXT`);
-    await pool.query(`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS phone TEXT`);
-    await pool.query(`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS service TEXT`);
-    await pool.query(`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS budget TEXT`);
-    await pool.query(`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS details TEXT`);
+    // Everything additive lives in lib/schema.js (one source of truth): create
+    // tables if absent + ADD COLUMN IF NOT EXISTS for every column the Admin and
+    // Client read APIs SELECT, including the ones the hosted (Neon) database was
+    // missing — inquiries.status, inquiries.nda_requested, inquiries.user_id —
+    // plus NULL-only backfills. This is the run that repairs production on the
+    // first cold start after deploy (Vercel runs no migration step).
+    // SAFE BY CONTRACT: no DROP / TRUNCATE / DELETE, existing rows are preserved.
+    await ensureSchema();
     console.log('Using DATABASE_URL:', (process.env.DATABASE_URL || '').replace(/:[^:@/]+@/, ':****@'));
-    await pool.query(`CREATE TABLE IF NOT EXISTS users (
-      id SERIAL PRIMARY KEY, name TEXT NOT NULL, email TEXT UNIQUE NOT NULL,
-      password_hash TEXT NOT NULL, created_at TIMESTAMP DEFAULT NOW())`);
-    // Self-heal auth columns on older DBs (role / is_active / phone).
-    await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS phone TEXT`);
-    await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS role TEXT DEFAULT 'client'`);
-    await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS is_active BOOLEAN DEFAULT TRUE`);
-    await pool.query(`UPDATE users SET role='client' WHERE role IS NULL OR role=''`);
-    await pool.query(`UPDATE users SET is_active=TRUE WHERE is_active IS NULL`);
     const existing = await pool.query('SELECT id, role FROM users WHERE email=$1', ['admin@kaalamithra-ai.com']);
     if (existing.rowCount === 0) {
       const hash = await bcrypt.hash('Admin@123', 10);
@@ -189,6 +183,10 @@ function __dupKey(o){ return [o.name||'',o.email||'',o.phone||'',o.company||'',o
 app.post('/api/inquiries', optionalAuth, async (req, res) => {
 
   try {
+    // Best-effort schema heal so a valid submission is never stored without the
+    // user_id association (or the defaults) on a DB predating migrations 001/002.
+    // Never fatal — the 42703 fallbacks below still persist the inquiry.
+    try { await ensureSchema(); } catch (healErr) { console.error('Schema heal skipped on submit:', healErr.message); }
     console.log('\n========================================');
     console.log('NEW INQUIRY RECEIVED:');
     console.log(req.body);
@@ -300,8 +298,30 @@ app.get('/api/health', async (req, res) => {
     });
   }
   try {
+    // Heal the schema first (idempotent) so one request both repairs and reports.
+    // Best-effort: a failed heal must not turn /api/health into a 500 by itself.
+    try {
+      await ensureSchema();
+    } catch (healErr) {
+      console.error('Health: schema heal skipped:', healErr.message);
+    }
     const r = await pool.query('SELECT NOW() as now, count(*)::int AS inquiries FROM inquiries');
-    res.json({ success: true, db: 'connected', now: r.rows[0].now, inquiries: r.rows[0].inquiries });
+    // Read-only schema introspection (no secrets): confirms on production that the
+    // columns the Admin/Client dashboards need are actually present.
+    let schema = { ready: false, missing: ['<introspection failed>'] };
+    try {
+      schema = await schemaStatus();
+    } catch (e) {
+      console.error('Health: schema introspection failed:', e.message);
+    }
+    res.json({
+      success: true,
+      db: 'connected',
+      now: r.rows[0].now,
+      inquiries: r.rows[0].inquiries,
+      schema_ready: schema.ready,
+      missing_columns: schema.missing,
+    });
   } catch (e) {
     console.error('Health DB error:', e.message);
     res.status(500).json({ success: false, error: e.message });
@@ -314,6 +334,9 @@ app.get('/api/health', async (req, res) => {
 // this scoping any logged-in client could read every other client's enquiry.
 app.get('/api/inquiries', requireAuth, async (req, res) => {
   try {
+    // client scoping filters on user_id -> guarantee the column exists first
+    // (idempotent, memoized per instance; see lib/schema.js).
+    await ensureSchema();
     const isAdmin = roleOf(req.user) === 'admin';
     const result = isAdmin
       ? await pool.query('SELECT * FROM inquiries ORDER BY id DESC;')
