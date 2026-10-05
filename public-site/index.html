@@ -353,7 +353,7 @@
       }
       if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = '<span>Sending...</span>'; }
       // ---- Exactly ONE fetch per click. Expects backend JSON: { success: true, data: { id, ... } } ----
-      const response = await fetch((typeof API_BASE !== 'undefined' ? API_BASE : GATE_API) + '/api/inquiries', {
+      const response = await fetch(GATE_API + '/api/inquiries', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
